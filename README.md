@@ -19,8 +19,10 @@
 ```
 
 ## Model
-- wip
-
+- App, ofcourse we do have different applications
+- Platform,  (ios, android, Django, where we can define the format so it is flexible) 
+- Locale, the list of localizations that we are supporting
+- KVStore, where we store the key-value pair.
 
 ## Author
 
