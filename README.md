@@ -2,15 +2,15 @@
 [wip] Locale files generator. because I hate updating locale files manually.
 
 
-# Format
+## Format
 
-## IOS
+#### iOS
 
 ```txt
 "key" = "value";
 ```
 
-## Android
+#### Android
 
 ```xml
 <resources>
@@ -19,3 +19,13 @@
 ```
 
 ## Model
+- wip
+
+
+## Author
+
+Michael Henry Pantaleon, me@iamkel.net
+
+## License
+
+MHPinterestLayout is available under the MIT license. See the LICENSE file for more info.
