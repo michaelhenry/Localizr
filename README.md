@@ -28,4 +28,4 @@ Michael Henry Pantaleon, me@iamkel.net
 
 ## License
 
-MHPinterestLayout is available under the MIT license. See the LICENSE file for more info.
+Localizr is available under the MIT license. See the LICENSE file for more info.
