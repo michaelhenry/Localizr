@@ -8,5 +8,5 @@ if os.environ.get("ADMIN_USERNAME", None):
 		User.objects.create_superuser("$ADMIN_USERNAME", "$ADMIN_EMAIL", "$ADMIN_PASSWORD")
 EOF
 
-python manage.py collectstatic -v0 --noinput
+python manage.py collectstatic --noinput
 gunicorn LocalizrExample.wsgi
