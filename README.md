@@ -1,6 +1,5 @@
 # Localizr
-[wip] Locale files generator. because I hate updating locale files manually. It's prone to error because not all developers understand all those words. So give the Translator an access to a page where they can input those translations and developers will just do their job by fetching it automatically.
-
+I'm too lazy to update the localization files and It's too prone to error because not all developers understand all those words. So give the Translator an access to a page where they can input those translations and developers will just do their job by fetching it automatically.
 
 #### DEMO
 
