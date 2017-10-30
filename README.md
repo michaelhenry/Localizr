@@ -4,7 +4,7 @@
 
 ## DEPLOY TO HEROKU
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/michaelhenry/localizr
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/michaelhenry/localizr)
 
 ## Format
 
@@ -21,12 +21,6 @@
   <string name="key">value</string>
 </resources>
 ```
-
-## Models
-- App, ofcourse we do have different applications.
-- Platform,  (ios, android, Django, where we can also define the format so it is flexible). 
-- Locale, the list of localizations that we are supporting.
-- KVStore, where we store the key-value pair.
 
 ## Author
 
