@@ -18,7 +18,7 @@ from apps.Localizr.views import (
 	)
 
 urlpatterns = [
-    path('/', admin.site.urls),
+    path('', admin.site.urls),
     path('v1/token/', obtain_auth_token, name='auth-token'),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
