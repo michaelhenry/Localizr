@@ -10,7 +10,7 @@ password: localizr
 ```
 
 ###### Admin page
-http://app-localizr.herokuapp.com/admin
+http://app-localizr.herokuapp.com
 
 ###### Strings Generator
 
