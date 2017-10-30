@@ -1,0 +1,43 @@
+{
+  "name": "Localizr",
+  "description": "Localization DSL.",
+  "keywords": [
+    "locale",
+    "localizer",
+    "localization",
+    "key-string"
+  ],
+  "website": "https://github.com/michaelhenry/localizr",
+  "repository": "https://github.com/michaelhenry/localizr",
+  "env": {
+    "DJANGO_SETTINGS_MODULE": "LocalizrExample.settings.production",
+    "DJANGO_SECRET_KEY": {
+      "generator": "secret"
+    },
+    "WEB_CONCURRENCY": {
+      "description": "The number of processes to run.",
+      "value": "1"
+    },
+    "ADMIN_USERNAME": {
+      "description": "The default username of the admin."
+    },
+    "ADMIN_EMAIL": {
+      "description": "The default email of the admin. This can be change later on the admin page."
+    },
+    "ADMIN_PASSWORD": {
+      "description": "The password of the admin. This can be change later on the admin page."
+    },
+    "ALLOWED_HOSTS": {
+      "description": "The name of the host. eg. appname.herokuapp.com or can be multiple hosts by separating with comma. eg. domain.com,appname.herokuapp.com"
+    }
+  },
+  "image": "heroku/python",
+  "addons": [
+    {
+      "plan": "heroku-postgresql",
+      "options": {
+        "version": "9.5"
+      }
+    }
+  ]
+}
