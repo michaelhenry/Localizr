@@ -15,13 +15,19 @@ class KeyStringIOSRenderer(renderers.BaseRenderer):
 		return str(key)
 
 	def process_value(self, value):
+
 		v 	= str(value)
 		v 	= v.replace("%s", "%@")
+		
+		#search for existing android sequence pattern and convert it to ios.
+		sequence_pattern_regex_for_android = re.compile('([%]\d+[$]\d+[s])', re.S)
+		v = sequence_pattern_regex_for_android.sub(lambda m: re.sub(r'\d+s', '@', m.group()), v)
+		
 		return v
 
 	def render(self, data, media_type=None, renderer_context=None):
 		r 	=	 self.attribution
-		r   +=  '\n'.join('\"%s\" = \"%s\";' % (self.process_value(val[self.key_name]), 
+		r 	+=  '\n'.join('\"%s\" = \"%s\";' % (self.process_value(val[self.key_name]), 
 			self.process_value(val[self.value_name])) for (val) in data)
 		return r.encode(self.charset)
 
@@ -37,14 +43,20 @@ class KeyStringAndroidRenderer(renderers.BaseRenderer):
 
 	def process_key(self, key):
 		pattern 	= 	'[^0-9a-zA-Z]+'
-
+		
 		k 	= str(key).lower()
 		k 	= re.sub(pattern, '_', k).lower()
 		return k
 
 	def process_value(self, value):
+
 		v = str(value)
 		v = v.replace("%@", "%s")
+		
+		#search for existing ios sequence pattern and convert it to android.
+		sequence_pattern_regex_for_ios = re.compile('([%]\d[$][@])', re.S)
+		v = sequence_pattern_regex_for_ios.sub(lambda m: m.group().replace('@',"1s"), v)
+		
 		return v
 
 	def render(self, data, media_type=None, renderer_context=None):
