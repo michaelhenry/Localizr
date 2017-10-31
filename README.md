@@ -20,6 +20,7 @@ http://app-localizr.herokuapp.com/app/{app_slug}-{locale_code}
 ```
 
 http://app-localizr.herokuapp.com/app/demo-en
+
 http://app-localizr.herokuapp.com/app/demo-ja
 
 
