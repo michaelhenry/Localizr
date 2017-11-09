@@ -1,8 +1,16 @@
 import re
 from rest_framework import renderers
 
+class KeyStringBaseRenderer(renderers.BaseRenderer):
 
-class KeyStringIOSRenderer(renderers.BaseRenderer):
+	def process_key(self, key):
+		raise NotImplementedError('process_key() must be implemented.')
+
+	def process_value(self, value):
+		raise NotImplementedError('process_value() must be implemented.')
+
+		
+class KeyStringIOSRenderer(KeyStringBaseRenderer):
 
 	media_type	= 'text/plain'
 	format		= 'ios'
@@ -26,13 +34,17 @@ class KeyStringIOSRenderer(renderers.BaseRenderer):
 		return v
 
 	def render(self, data, media_type=None, renderer_context=None):
-		r 	=	 self.attribution
-		r 	+=  '\n'.join('\"%s\" = \"%s\";' % (self.process_value(val[self.key_name]), 
-			self.process_value(val[self.value_name])) for (val) in data)
-		return r.encode(self.charset)
+		
+		if not data.get(self.key_name):
+			return '\n'.join('\"%s\" = \"%s\";' % (key, val) for (key, val) in data.items())
+		else:
+			r 	=	self.attribution
+			r 	+=	'\n'.join('\"%s\" = \"%s\";' % (self.process_value(val[self.key_name]), 
+				self.process_value(val[self.value_name])) for (val) in data)
+			return r.encode(self.charset)
 
 
-class KeyStringAndroidRenderer(renderers.BaseRenderer):
+class KeyStringAndroidRenderer(KeyStringBaseRenderer):
 
 	media_type	= 'application/xml'
 	format		= 'android'
@@ -60,10 +72,14 @@ class KeyStringAndroidRenderer(renderers.BaseRenderer):
 		return v
 
 	def render(self, data, media_type=None, renderer_context=None):
+		
 		r 	=  '<resources>'
-		r 	+= self.attribution
-		r 	+= '\n'.join('\t<string name=\"%s\">%s</string>' % (self.process_key(val[self.key_name]), 
-			self.process_value(val[self.value_name])) for (val) in data)
-		r 	+= '\n'
-		r 	+= '</resources>'
+		if not data.get(self.key_name):
+			r 	+=	'\n'.join('\t<string name=\"%s\">%s</string>' % (key, val) for (key, val) in data.items())
+		else:
+			r 	+= 	self.attribution
+			r 	+=	'\n'.join('\t<string name=\"%s\">%s</string>' % (self.process_key(val[self.key_name]), 
+				self.process_value(val[self.value_name])) for (val) in data)
+			r 	+=	'\n'
+		r 	+=	'</resources>'
 		return r.encode(self.charset)
