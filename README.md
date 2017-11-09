@@ -54,6 +54,13 @@ Eg.
 
 http://app-localizr.herokuapp.com/app/demo-ja?format=android
 
+## TODO:
+
+- [x] iOS format support
+- [x] Android format support
+- [ ] Import content via CSV file
+- [ ] Able to use google translate for some missing translations.
+
 ## Author
 
 Michael Henry Pantaleon, me@iamkel.net
