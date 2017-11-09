@@ -9,7 +9,7 @@ class KeyStringBaseRenderer(renderers.BaseRenderer):
 	def process_value(self, value):
 		raise NotImplementedError('process_value() must be implemented.')
 
-		
+
 class KeyStringIOSRenderer(KeyStringBaseRenderer):
 
 	media_type	= 'text/plain'
@@ -34,10 +34,10 @@ class KeyStringIOSRenderer(KeyStringBaseRenderer):
 		return v
 
 	def render(self, data, media_type=None, renderer_context=None):
-		
-		if not data.get(self.key_name):
+
+		if isinstance(data, dict):
 			return '\n'.join('\"%s\" = \"%s\";' % (key, val) for (key, val) in data.items())
-		else:
+		elif isinstance(data, list):
 			r 	=	self.attribution
 			r 	+=	'\n'.join('\"%s\" = \"%s\";' % (self.process_value(val[self.key_name]), 
 				self.process_value(val[self.value_name])) for (val) in data)
@@ -74,9 +74,9 @@ class KeyStringAndroidRenderer(KeyStringBaseRenderer):
 	def render(self, data, media_type=None, renderer_context=None):
 		
 		r 	=  '<resources>'
-		if not data.get(self.key_name):
+		if isinstance(data, dict):
 			r 	+=	'\n'.join('\t<string name=\"%s\">%s</string>' % (key, val) for (key, val) in data.items())
-		else:
+		elif isinstance(data, list):
 			r 	+= 	self.attribution
 			r 	+=	'\n'.join('\t<string name=\"%s\">%s</string>' % (self.process_key(val[self.key_name]), 
 				self.process_value(val[self.value_name])) for (val) in data)
