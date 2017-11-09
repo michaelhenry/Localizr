@@ -111,6 +111,12 @@ class LocalizedString(UserInfoSavableModel):
 		related_name='values', 
 		on_delete=models.CASCADE)
 
+	def __str__(self):
+		return "%s" % self.value
+
+	def __unicode__(self):
+		return '%s' % self.value
+		
 	class Meta(object):
 		unique_together = ('locale', 'key_string',)
 
