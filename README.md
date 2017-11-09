@@ -37,6 +37,11 @@ http://app-localizr.herokuapp.com/app/demo-ja
 "key" = "value";
 ```
 
+Eg.
+
+http://app-localizr.herokuapp.com/app/demo-ja?format=ios
+
+
 #### Android
 
 ```xml
@@ -44,6 +49,10 @@ http://app-localizr.herokuapp.com/app/demo-ja
   <string name="key">value</string>
 </resources>
 ```
+
+Eg.
+
+http://app-localizr.herokuapp.com/app/demo-ja?format=android
 
 ## Author
 
