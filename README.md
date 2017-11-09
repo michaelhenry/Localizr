@@ -58,7 +58,9 @@ http://app-localizr.herokuapp.com/app/demo-ja?format=android
 
 - [x] iOS format support
 - [x] Android format support
-- [ ] Import content via CSV file
+- [ ] CI
+- [ ] Interactive UI.
+- [ ] Import/Export contents via CSV file
 - [ ] Able to use google translate for some missing translations.
 
 ## Author
