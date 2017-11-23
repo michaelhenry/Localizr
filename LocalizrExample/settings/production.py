@@ -2,6 +2,7 @@ from .default import *
 import dj_database_url
 
 DEBUG = False
+DEBUG_TOOLBAR = False
 
 INSTALLED_APPS += []
 

@@ -41,4 +41,11 @@ urlpatterns += [
     path('app/<slug:app_slug>-<slug:locale_code>', key_value_list_view, name='key-value-list'),
  ]
 
+if settings.DEBUG_TOOLBAR:
+    import debug_toolbar
+    urlpatterns  += [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ]
+
+
 admin.site.site_header = 'Localizr'
