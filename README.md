@@ -60,7 +60,7 @@ http://app-localizr.herokuapp.com/app/demo-ja?format=android
 
 
 ## Recommendation, Automation and Deployment:
-With using `CI` and `Fastlane`, create a script that will download all the updated localization strings (if ever there are updates, using `Etag`, or `HttpResponse304`) before `gym` method, So we can make sure that all strings are always updated.
+With using `CI` and `Fastlane`, create a script that will download all the updated localization strings before `gym` method, So we can always make sure that all strings are updated.
 
 
 ## TODO:
