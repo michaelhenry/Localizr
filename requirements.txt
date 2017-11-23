@@ -1,5 +1,5 @@
 dj-database-url==0.4.2
-Django==2.0b1
+git+https://github.com/django/django@2.0rc1
 django-debug-toolbar==1.9.1
 django-rest-framework==0.1.0
 djangorestframework==3.7.1
