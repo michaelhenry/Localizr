@@ -87,6 +87,10 @@ class KeyString(UserInfoSavableModel):
     class Meta(object):
         unique_together = ('key',)
 
+    def clean_recipients(self):
+        data = self.cleaned_data['key']
+        return data.strip()
+
 
 class AppInfoKeyString(UserInfoSavableModel):
 

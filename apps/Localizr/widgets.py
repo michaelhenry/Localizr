@@ -16,7 +16,7 @@ class KeyStringWidget(widgets.ForeignKeyWidget):
 
     def clean(self, value, row=None, *args, **kwargs):
 
-        keystring = self.model.objects.get_or_create(key = value)[0]
+        keystring = self.model.objects.get_or_create(key = value.strip())[0]
         return keystring
 
 
