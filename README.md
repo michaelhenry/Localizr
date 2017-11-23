@@ -58,13 +58,19 @@ Eg.
 
 http://app-localizr.herokuapp.com/app/demo-ja?format=android
 
+
+## Recommendation, Automation and Deployment:
+With using `CI` and `Fastlane`, create a script that will download all the updated localization strings (if ever there are updates, using `Etag`, or `HttpResponse304`) before `gym` method, So we can make sure that all strings are always updated.
+
+
 ## TODO:
 
 - [x] iOS format support
 - [x] Android format support
-- [ ] CI
-- [ ] Interactive UI.
 - [x] Import/Export contents via CSV file
+- [x] CI
+- [ ] Test cases
+- [ ] Interactive UI.
 - [ ] Able to use google translate for some missing translations.
 
 ## Author
