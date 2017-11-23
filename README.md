@@ -14,18 +14,18 @@ password: localizr
 ```
 
 ###### Admin page
-http://app-localizr.herokuapp.com
+http://localizr.iamkel.net
 
 ###### Strings Generator
 
 Format:
 ```
-http://app-localizr.herokuapp.com/app/{app_slug}-{locale_code}
+http://localizr.iamkel.net/app/{app_slug}-{locale_code}
 ```
 
-http://app-localizr.herokuapp.com/app/demo-en
+http://localizr.iamkel.net/app/demo-en
 
-http://app-localizr.herokuapp.com/app/demo-ja
+http://localizr.iamkel.net/app/demo-ja
 
 
 #### AUTO-DEPLOY TO HEROKU
@@ -43,7 +43,7 @@ http://app-localizr.herokuapp.com/app/demo-ja
 
 Eg.
 
-http://app-localizr.herokuapp.com/app/demo-ja?format=ios
+http://localizr.iamkel.net/app/demo-ja?format=ios
 
 
 #### Android
@@ -56,7 +56,7 @@ http://app-localizr.herokuapp.com/app/demo-ja?format=ios
 
 Eg.
 
-http://app-localizr.herokuapp.com/app/demo-ja?format=android
+http://localizr.iamkel.net/app/demo-ja?format=android
 
 
 ## Recommendation, Automation and Deployment:
