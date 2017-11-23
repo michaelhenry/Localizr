@@ -23,24 +23,6 @@ class UserInfoSavableAdmin(object):
 
     exclude = ('created_by', 'modified_by',)
 
-    def save_model(self, request, obj, form, change):
-
-        if not hasattr(obj, 'created_by'):
-            obj.created_by = request.user
-        obj.created_by = request.user
-        obj.modified_by = request.user
-        obj.save()
-
-    def save_formset(self, request, form, formset, change): 
-        
-        objs = formset.save(commit=False)
-        for obj in objs:
-            if issubclass(obj.__class__, UserInfoSavableModel):
-                if not hasattr(obj, 'created_by'):
-                    obj.created_by = request.user
-                obj.modified_by = request.user
-            obj.save()
-
 
 class BaseModelAdmin(UserInfoSavableAdmin, admin.ModelAdmin):
 
