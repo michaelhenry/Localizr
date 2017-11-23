@@ -60,7 +60,7 @@ http://app-localizr.herokuapp.com/app/demo-ja?format=android
 
 
 ## Recommendation, Automation and Deployment:
-With using `CI` and `Fastlane`, create a script that will download all the updated localization strings before `gym` method, So we can always make sure that all strings are updated.
+With using `CI` and `Fastlane`, create a script that will download and update all the localization strings before `gym` method, So we can always make sure that all strings are updated. 
 
 
 ## TODO:
