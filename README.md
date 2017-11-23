@@ -69,7 +69,7 @@ With using `CI` and `Fastlane`, create a script that will download and update al
 - [x] Android format support
 - [x] Import/Export contents via CSV file
 - [x] CI
-- [ ] Test cases
+- [x] Test cases
 - [ ] Interactive UI.
 - [ ] Able to use google translate for some missing translations.
 
