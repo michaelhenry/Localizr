@@ -12,6 +12,8 @@ from .models import (
     )
 
 from .resources import (
+    AppInfoResource,
+    LocaleResource,
     AppInfoKeyStringResource,
     LocalizedStringResource,
     )
@@ -50,21 +52,22 @@ class BaseTabularInlineModelAdmin(UserInfoSavableAdmin, admin.TabularInline):
     pass
 
 
-class LocaleAdmin(BaseModelAdmin):
+class LocaleAdmin(BaseModelAdmin, ImportExportModelAdmin):
 
-    ordering        =   ('name','code',)
-    search_fields   =   ('name','code',)
-    list_display    =   ('name' ,'code','description')
-    
+    ordering            =   ('name','code',)
+    search_fields       =   ('name','code',)
+    list_display        =   ('name' ,'code','description')
+    resource_class      =   LocaleResource
 
-class AppInfoAdmin(BaseModelAdmin):
+
+class AppInfoAdmin(BaseModelAdmin, ImportExportModelAdmin):
 
     fields              =   ('name', 'slug', 'description', 'base_locale',)
     ordering            =   ('name',)
     search_fields       =   ('name','description',)
     list_display        =   ('name', 'slug', 'description', 'base_locale')
     prepopulated_fields =   {'slug':('name',)}
-
+    resource_class      =   AppInfoResource
 
 class LocalizedStringInline(BaseTabularInlineModelAdmin):
 
@@ -74,10 +77,10 @@ class LocalizedStringInline(BaseTabularInlineModelAdmin):
 
 class KeyStringAdmin(BaseModelAdmin):
 
-    ordering        =    ('key',)
-    search_fields   =    ('key','description',)
-    list_display    =    ('key' ,'description',)
-    inlines         =    [LocalizedStringInline,]
+    ordering            =    ('key',)
+    search_fields       =    ('key','description',)
+    list_display        =    ('key' ,'description',)
+    inlines             =    [LocalizedStringInline,]
 
     
 class AppInfoKeyStringAdmin(BaseModelAdmin, ImportExportModelAdmin):
@@ -106,4 +109,3 @@ admin.site.register(AppInfo, AppInfoAdmin)
 admin.site.register(KeyString, KeyStringAdmin)
 admin.site.register(AppInfoKeyString, AppInfoKeyStringAdmin)
 admin.site.register(LocalizedString, LocalizedStringAdmin)
-admin.site.site_header = 'Localizr'

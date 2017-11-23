@@ -40,3 +40,5 @@ urlpatterns += [
     # path('v1/app_info_key_string/<int:pk>', app_info_key_string_detail_view, name='app-info-detail'),
     path('app/<slug:app_slug>-<slug:locale_code>', key_value_list_view, name='key-value-list'),
  ]
+
+admin.site.site_header = 'Localizr'

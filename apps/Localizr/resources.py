@@ -15,6 +15,29 @@ from .widgets import (
     KeyStringWidget,
     )
 
+
+class AppInfoResource(resources.ModelResource):
+
+    base_locale = fields.Field(column_name='base_locale', 
+        attribute='base_locale', 
+        widget=LocaleWidget(Locale, 'code'))
+
+    class Meta:
+        model = AppInfo
+        import_id_fields = ['slug']
+        export_order = ('name', 'slug', 'base_locale',)
+        fields = ('name', 'slug', 'base_locale',)
+
+
+class LocaleResource(resources.ModelResource):
+
+    class Meta:
+        model = Locale
+        import_id_fields = ['code']
+        export_order = ('name', 'code',)
+        fields = ('name', 'code',)
+
+
 class LocalizedStringResource(resources.ModelResource):
 
     key = fields.Field(column_name='key', 
