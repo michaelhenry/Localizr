@@ -48,5 +48,6 @@ if settings.DEBUG_TOOLBAR:
     ]
 
 
-admin.site.site_header = 'Localizr'
-admin.site.site_title = 'Localizr'
+admin.site.site_header      =    'Localizr'
+admin.site.site_title       =    'Localizr'
+admin.site.site_url         =     None
