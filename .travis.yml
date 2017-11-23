@@ -1,7 +1,5 @@
 language: python
 python:
-  - "3.2"
-  - "3.3"
   - "3.4"
   - "3.5"
   - "3.5-dev" # 3.5 development branch
@@ -14,7 +12,7 @@ install:
   - pip install -r requirements.txt
 
 env:
-  - DJANGO_SETTINGS_MODULE=LocalizeExample.settings.default
+  - DJANGO_SETTINGS_MODULE=LocalizrExample.settings.default
 
 script:
   - python manage.py test
