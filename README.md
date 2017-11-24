@@ -41,6 +41,8 @@ http://localizr.iamkel.net/app/{app_slug}.{locale_code}
 By using `Fastlane`
 - `fastlane actions localizr`
 
+![fastlane actions localizr](docs/images/fastlane_actions_localizr.png)
+
 
 ## For Non-Developers
 ### How to use Localizr?
@@ -62,8 +64,11 @@ You can find the sample csv files in the [sample_data](/sample_data) folder.
 4. Import the `Localized String.csv` to `Localized String` section.
 
 ![import admin import](docs/images/admin_localized_strings_import.png)
+
 ![import button](docs/images/admin_import.png)
+
 ![import change diff](docs/images/admin_import_compare.png)
+
 
 ### How about exporting?
 Just find the `EXPORT` button, select the `format` and that's it.
@@ -72,7 +77,6 @@ Just find the `EXPORT` button, select the `format` and that's it.
 ## Recommendation, Automation and Deployment:
 With using `CI` and `Fastlane`, create a script or use `fastlane actions localizr` to download and update all the localization strings before `gym` method, So we can always make sure that all strings are updated. 
 
-![fastlane actions localizr](docs/images/fastlane_actions_localizr.png)
 
 ## TODO:
 
