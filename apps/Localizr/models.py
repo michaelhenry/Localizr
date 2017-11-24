@@ -44,8 +44,8 @@ class Locale(UserInfoSavableModel):
 
     class Meta(object):
         unique_together     =   ('name', 'code',)
-        verbose_name        =   '1. Locale'
-        verbose_name_plural =   '1. Locales'
+        verbose_name        =   'Locale'
+        verbose_name_plural =   'Locales'
 
 
 class AppInfo(UserInfoSavableModel):
@@ -70,8 +70,8 @@ class AppInfo(UserInfoSavableModel):
 
     class Meta(object):
         unique_together     =   ('slug',)
-        verbose_name        =   '2. App'
-        verbose_name_plural =   '2. Apps'
+        verbose_name        =   'App'
+        verbose_name_plural =   'Apps'
 
 
 class KeyString(UserInfoSavableModel):
@@ -90,8 +90,8 @@ class KeyString(UserInfoSavableModel):
 
     class Meta(object):
         unique_together     =    ('key',)
-        verbose_name        =    '3. Key'
-        verbose_name_plural =    '3. Keys'
+        verbose_name        =    'Key'
+        verbose_name_plural =    'Keys'
         
 
 class AppInfoKeyString(UserInfoSavableModel):
@@ -109,8 +109,8 @@ class AppInfoKeyString(UserInfoSavableModel):
 
     class Meta(object):
         unique_together     =    ('app_info', 'key_string',)
-        verbose_name        =    '4. App \'s Key'
-        verbose_name_plural =    '4. App \'s Keys'
+        verbose_name        =    'App \'s Key'
+        verbose_name_plural =    'App \'s Keys'
 
 
 class LocalizedString(UserInfoSavableModel):
@@ -129,7 +129,7 @@ class LocalizedString(UserInfoSavableModel):
         
     class Meta(object):
         unique_together     =    ('locale', 'key_string',)
-        verbose_name        =    '5. Localized String'
-        verbose_name_plural =    '5. Localized Strings'
+        verbose_name        =    'Localized String'
+        verbose_name_plural =    'Localized Strings'
 
 

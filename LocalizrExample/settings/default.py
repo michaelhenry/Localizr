@@ -168,3 +168,23 @@ DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.logging.LoggingPanel',
     'debug_toolbar.panels.redirects.RedirectsPanel',
 ]
+
+ADMIN_DASHBOARD_LAYOUT = {
+
+    "localizr": {
+        "sequence":0,
+        "models":[
+            "Locale",
+            "AppInfo",
+            "KeyString",
+            "AppInfoKeyString",
+            "LocalizedString"
+        ]
+    },
+    "auth": {
+
+    },
+    "authtoken": {
+
+    }
+}
