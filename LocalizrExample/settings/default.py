@@ -171,7 +171,7 @@ DEBUG_TOOLBAR_PANELS = [
 
 ADMIN_DASHBOARD_LAYOUT = {
 
-    "localizr": {
+    "Localizr": {
         "sequence":0,
         "models":[
             "Locale",
