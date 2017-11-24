@@ -25,7 +25,7 @@ password: localizr
 ## For Developers
 ### Strings Generator
 ```
-http://localizr.iamkel.net/app/{app_slug}.{locale_code}
+http://{your_server.com}/app/{app_slug}.{locale_code}
 ```
 - http://localizr.iamkel.net/app/demo.en
 - http://localizr.iamkel.net/app/demo.ja
