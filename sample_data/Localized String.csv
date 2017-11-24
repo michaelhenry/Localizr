@@ -1,0 +1,68 @@
+key,value,locale
+NAME,Name,en
+NAME,名,ja
+BACK,Back,en
+BACK,バック,ja
+HOME,Home,en
+HOME,Homu,ja
+GREETING,"Hello %1$@, I'm %2$@.",en
+GREETING,"こんにちは%1$@-さん, %2$@です・",ja
+TEST,Test,en
+HELLO,Hello,en
+HELLO,こんにちは,ja
+GOOD_MORNING,Good morning,en
+GOOD_MORNING,おはようございます,ja
+GOOD_AFTERNOON,Good afternoon,en
+GOOD_AFTERNOON,こんにちは,ja
+GOOD_NIGHT,Good night,en
+GOOD_NIGHT,おやすみ,ja
+SEE_YOU,See you!,en
+SEE_YOU,またね！,ja
+HOW_ARE_YOU,How are you?,en
+HOW_ARE_YOU,お元気ですか？,ja
+GREAT,Great,en
+GREAT,すばらしいです,ja
+FORWARD,Forward,en
+FORWARD,フォワード,ja
+LEFT,Left,en
+LEFT,左,ja
+RIGHT,Right,en
+RIGHT,右,ja
+UP,Up,en
+UP,アップ,ja
+DOWN,Down,en
+DOWN,ダウン,ja
+GOOD_LUCK,Good luck,en
+GOOD_LUCK,がんばろう,ja
+I_LOVE_YOU,I love you.,en
+I_LOVE_YOU,わたしは、あなたを愛しています。,ja
+I_MISS_YOU,I miss you.,en
+I_MISS_YOU,あなたがいなくて寂しいです。,ja
+GTG,Got to go.,en
+GTG,行きましょう。,ja
+WARNING,Warning,en
+WARNING,警告,ja
+INFO,Info,en
+INFO,情報,ja
+GOOD_BYE,Good bye,en
+GOOD_BYE,さようなら,ja
+TAKE_CARE,Take care.,en
+TAKE_CARE,世話をする。,ja
+OMG,Oh my God!!!,en
+OMG,何てことだ！！！,ja
+NICE_TRY,Nice try!,en
+NICE_TRY,よい試み！,ja
+I_HATE_YOU,I hate you!,en
+I_HATE_YOU,大嫌い！,ja
+ALWAYS,Always,en
+ALWAYS,常に,ja
+OK,Ok,en
+OK,OK,ja
+CANCEL,Cancel,en
+CANCEL,キャンセル,ja
+SAVE,Save,en
+SAVE,セーブ,ja
+DONE,Done,en
+DONE,完了,ja
+SUCCESSFUL,Successful,en
+SUCCESSFUL,成功した,ja
