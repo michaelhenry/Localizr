@@ -38,7 +38,7 @@ urlpatterns += [
     # path('v1/key_string/<int:pk>', key_string_detail_view, name='key-string-detail'),
     # path('v1/app_info_key_string/', app_info_key_string_list_view, name='app-info-list'),
     # path('v1/app_info_key_string/<int:pk>', app_info_key_string_detail_view, name='app-info-detail'),
-    path('app/<slug:app_slug>-<slug:locale_code>', key_value_list_view, name='key-value-list'),
+    path('app/<slug:app_slug>.<slug:locale_code>', key_value_list_view, name='key-value-list'),
  ]
 
 if settings.DEBUG_TOOLBAR:
