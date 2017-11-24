@@ -38,7 +38,7 @@ http://{your_server.com}/app/{app_slug}.{locale_code}
 - http://localizr.iamkel.net/app/demo.ja?format=android
 
 ### Sync to your xcode project?
-By using `Fastlane`
+By using `Fastlane`. Currently `localizr` action is not officially available in `fastlane` repo, so you have to manually grab it from here  [fastlane/actions](/fastlane/actions) and paste the `actions` folder directly to your project 's `fastlane` folder in order to make this available to your local.
 - `fastlane actions localizr`
 
 ![fastlane actions localizr](docs/images/fastlane_actions_localizr.png)
