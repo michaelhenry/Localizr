@@ -37,6 +37,11 @@ http://localizr.iamkel.net/app/{app_slug}.{locale_code}
 ### Android
 - http://localizr.iamkel.net/app/demo.ja?format=android
 
+### Sync to your xcode project?
+By using `Fastlane`
+- `fastlane actions localizr`
+
+
 ## For Non-Developers
 ### How to use Localizr?
 
@@ -56,6 +61,10 @@ You can find the sample csv files in the [sample_data](/sample_data) folder.
 3. Import the `App's Keys.csv` to `App 's Keys` section.
 4. Import the `Localized String.csv` to `Localized String` section.
 
+![import admin import](docs/admin_localized_strings_import.png)
+![import button](docs/admin_import.png)
+![import change diff](docs/admin_import_compare.png)
+
 ### How about exporting?
 Just find the `EXPORT` button, select the `format` and that's it.
 
@@ -63,6 +72,7 @@ Just find the `EXPORT` button, select the `format` and that's it.
 ## Recommendation, Automation and Deployment:
 With using `CI` and `Fastlane`, create a script or use `fastlane actions localizr` to download and update all the localization strings before `gym` method, So we can always make sure that all strings are updated. 
 
+![fastlane actions localizr](docs/fastlane_actions_localizr.png)
 
 ## TODO:
 
