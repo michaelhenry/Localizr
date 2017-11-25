@@ -4,7 +4,7 @@ module Fastlane
     class LocalizrAction < Action
 
       def self.build_localizr_request(server_url, app_slug, locale_code, auth_token, lproj_target_path, lproj_name)
-        return  "curl -silient -o #{lproj_target_path}#{lproj_name}.lproj/Localizable.strings #{server_url}/app/#{app_slug}.#{locale_code}?format=ios -H 'Authorization: Token #{auth_token}'"
+        return  "curl --fail -silient -o #{lproj_target_path}#{lproj_name}.lproj/Localizable.strings #{server_url}/app/#{app_slug}.#{locale_code}?format=ios -H 'Authorization: Token #{auth_token}'"
       end
 
       def self.run(params)
@@ -14,8 +14,8 @@ module Fastlane
         UI.message "LProj Target path: #{params[:lproj_target_path]}"
         
         params[:locale_codes].split(",").each { |locale_code|
-          lproj_name = locale_code.downcase.strip
-          if locale_code.downcase == params[:base_locale_code].downcase.strip
+          lproj_name = locale_code.strip
+          if locale_code.downcase.strip == params[:base_locale_code].downcase.strip
             lproj_name = 'Base'
           end
 
@@ -26,6 +26,8 @@ module Fastlane
             params[:lproj_target_path], 
             lproj_name)
         }
+      rescue
+        UI.user_error!("An error occured on localizr. Please verify the configuration for the following: localizr_server, localizr_api_token, localizr_app_slug.")
       end
 
       #####################################################
