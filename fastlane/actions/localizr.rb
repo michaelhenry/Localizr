@@ -4,7 +4,7 @@ module Fastlane
     class LocalizrAction < Action
 
       def self.build_localizr_request(server_url, app_slug, locale_code, auth_token, lproj_target_path, lproj_name)
-        return  "curl --fail --silent -o #{lproj_target_path}#{lproj_name}.lproj/Localizable.strings #{server_url}/app/#{app_slug}.#{locale_code}?format=ios -H 'Authorization: Token #{auth_token}'"
+        return  "curl --fail --silent -o #{lproj_target_path}/#{lproj_name}.lproj/Localizable.strings #{server_url}/app/#{app_slug}.#{locale_code}?format=ios -H 'Authorization: Token #{auth_token}'"
       end
 
       def self.run(params)
