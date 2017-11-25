@@ -3,8 +3,10 @@ module Fastlane
 
     class LocalizrAction < Action
 
-      def self.build_localizr_request(server_url, app_slug, locale_code, auth_token, lproj_target_path, lproj_name)
-        return  "curl --fail --silent -o #{lproj_target_path}/#{lproj_name}.lproj/Localizable.strings #{server_url}/app/#{app_slug}.#{locale_code}?format=ios -H 'Authorization: Token #{auth_token}'"
+      def self.localizr_request(server_url, app_slug, locale_code, auth_token, lproj_target_path, lproj_name)
+        lproj_folder = "#{lproj_target_path}/#{lproj_name}.lproj"
+        sh "mkdir -p #{lproj_folder}"
+        sh "curl --fail --silent -o #{lproj_folder}/Localizable.strings #{server_url}/app/#{app_slug}.#{locale_code}?format=ios -H 'Authorization: Token #{auth_token}'"
       end
 
       def self.run(params)
@@ -19,7 +21,7 @@ module Fastlane
             lproj_name = 'Base'
           end
 
-          sh build_localizr_request(params[:localizr_server], 
+          localizr_request(params[:localizr_server], 
             params[:localizr_app_slug], 
             locale_code, 
             params[:localizr_api_token], 
@@ -27,7 +29,7 @@ module Fastlane
             lproj_name)
         }
       rescue
-        UI.user_error!("An error occured on localizr. Please verify the configuration for the following: localizr_server, localizr_api_token, localizr_app_slug.")
+        UI.user_error!("An error occured on localizr. Please verify the configuration and then try again.")
       end
 
       #####################################################
@@ -76,7 +78,7 @@ module Fastlane
                                        env_name: "FL_LOCALIZR_LPROJ_TARGET_PATH",
                                        description: "Lproj target path for LocalizrAction",
                                        verify_block: proc do |value|
-                                          UI.user_error!("No lproj_target_path for LocalizrAction given, pass using `lproj_target_path: 'locales/'") unless (value and not value.empty?)
+                                          UI.user_error!("No lproj_target_path for LocalizrAction given, pass using `lproj_target_path: 'Project'") unless (value and not value.empty?)
                                        end),
         ]
       end
