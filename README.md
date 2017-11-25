@@ -12,6 +12,8 @@ Localizr is a DSL that handles and automates localization files. Basically we gi
 - Default fallback for missing localizations.
 - Export and import to different file format.
 - Easy deployment: [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/michaelhenry/localizr)
+- Static files hosted in AWS S3 (Optional)
+
 
 ## DEMO
 - http://localizr.iamkel.net
@@ -43,6 +45,13 @@ By using `Fastlane`. Currently `localizr` action is not officially available in 
 
 ![fastlane actions localizr](docs/images/fastlane_actions_localizr.png)
 
+### S3 Configuration
+This is optional, but you can enable this by providing valid information for the following in the environment variables.
+```bash
+export AWS_ACCESS_KEY_ID='Your aws access key id'
+export AWS_SECRET_ACCESS_KEY='Your secret key'
+export AWS_STORAGE_BUCKET_NAME='Name of the bucket'
+```
 
 ## For Non-Developers
 ### How to use Localizr?
