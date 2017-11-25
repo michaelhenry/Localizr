@@ -24,6 +24,10 @@ password: localizr
 ```
 
 
+## IOS Client
+I have created a demo IOS App, You can pull it from [LocalizrIOSExample Repository](https://github.com/michaelhenry/LocalizrIOSExample).
+
+
 ## For Developers
 ### Strings Generator
 ```
