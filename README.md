@@ -41,9 +41,35 @@ http://{your_server.com}/app/{app_slug}.{locale_code}
 
 ### Sync to your xcode project?
 By using `Fastlane`. Currently `localizr` action is not officially available in `fastlane` repo, so you have to manually grab it from here  [fastlane/actions](/fastlane/actions) and paste the `actions` folder directly to your project 's `fastlane` folder in order to make this available to your local.
-- `fastlane actions localizr`
+here is the shortcut:
+```bash
+# from your workplace root folder:
+$ curl -o fastlane/actions/localizr.rb https://raw.githubusercontent.com/michaelhenry/Localizr/master/fastlane/actions/localizr.rb
+```
 
+```bash
+$ fastlane actions localizr
+```
 ![fastlane actions localizr](docs/images/fastlane_actions_localizr.png)
+
+and configure it from your `Fastfile`
+```ruby
+desc "Submit build to fabric."
+lane :alpha do
+  increment_build_number
+  ...
+  localizr(
+    localizr_server: 'http://your_localizr_server',
+    localizr_api_token: 'your-auth-token-from-admin-page',
+    locale_codes:  'en,ja,pt,zh,es',
+    localizr_app_slug: 'your-app-slug',
+    lproj_target_path: 'your-project-folder-name/'
+  )
+  ...
+  gym
+  crashlytics
+end
+```
 
 ### S3 Configuration
 This is optional, but you can enable this by providing valid information for the following in the environment variables.
