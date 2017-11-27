@@ -67,7 +67,8 @@ lane :alpha do
     localizr_api_token: 'your-auth-token-from-admin-page',
     locale_codes:  'en,ja,pt,zh,es',
     localizr_app_slug: 'your-app-slug',
-    lproj_target_path: 'your-project-folder-name/'
+    output_target_path: 'ExampleApp',
+    platform: 'ios',
   )
   ...
   gym
