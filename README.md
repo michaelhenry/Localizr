@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/michaelhenry/Localizr.svg?branch=master)](https://travis-ci.org/michaelhenry/Localizr)
 
-Localizr is a DSL that handles and automates localization files. Basically we give limited access to the translators to let them input or upload different keystrings and we developer will just fetch it on development or deployment only when if there is an update or changes. This will lessen or prevent the mistake that developer made because he/she has no clue what are those words is and most of them (including me, but not all) are just copy pasting those words (especially when it comes to chinese or japanese characters) from excel to the Localizable.strings via Xcode.
+Localizr is a DSL that handles and automates localization files. Basically we give limited access to the translators to let them input or upload different keystrings and the developer will just fetch it on development or deployment only when if there is an update or changes. This will lessen or prevent the mistake that developer made because he/she has no clue what are those words are and most of them (including me, but not all) are just copy pasting those words (especially when it comes to chinese or japanese characters) from excel to the Localizable.strings via Xcode.
       
 
 ## Features
@@ -57,6 +57,7 @@ $ fastlane actions localizr
 ![fastlane actions localizr](docs/images/fastlane_actions_localizr.png)
 
 and configure it from your `Fastfile`
+
 ```ruby
 desc "Submit build to fabric."
 lane :alpha do
@@ -75,6 +76,18 @@ lane :alpha do
   crashlytics
 end
 ```
+You can also use environment variables if you dont want to configure it from Fastfile:
+
+```bash
+export FL_LOCALIZR_SERVER='http://your_localizr_server'
+export FL_LOCALIZR_API_TOKEN='your-auth-token-from-admin-page'
+export FL_LOCALIZR_APP_SLUG='your-app-slug'
+export FL_LOCALIZR_BASE_LOCALE_CODE='en'
+export FL_LOCALIZR_LOCALE_CODES='en,es,ja,zh,pt'
+export FL_LOCALIZR_PLATFORM='ios'
+export FL_LOCALIZR_OUTPUT_TARGET_PATH='ExampleApp'
+```
+
 
 ### S3 Configuration
 This is optional, but you can enable this by providing valid information for the following in the environment variables.
