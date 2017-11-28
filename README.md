@@ -8,7 +8,7 @@ Localizr is a DSL that handles and automates localization files. Basically we gi
 ## Features
 - Multi-App support. reusable keys for different applications.
 - Android and IOS support.
-- Integrated with `Fastlane actions`. (for IOS, `Fastlane actions localizr`) 
+- Integrated with `Fastlane actions`. (`Fastlane actions localizr`) 
 - Default fallback for missing localizations.
 - Export and import to different file format.
 - Easy deployment: [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/michaelhenry/localizr)
@@ -43,7 +43,7 @@ http://{your_server.com}/app/{app_slug}.{locale_code}
 ### Android
 - http://localizr.iamkel.net/app/demo.ja?format=android
 
-### Sync to your xcode project?
+### Integrate to your Android or IOS Project?
 By using `Fastlane`. Currently `localizr` action is not officially available in `fastlane` repo, so you have to manually grab it from here  [fastlane/actions](/fastlane/actions) and paste the `actions` folder directly to your project 's `fastlane` folder in order to make this available to your local.
 here is the shortcut:
 ```bash
@@ -56,13 +56,12 @@ $ fastlane actions localizr
 ```
 ![fastlane actions localizr](docs/images/fastlane_actions_localizr.png)
 
-and configure it from your `Fastfile`
-
+#### Sample configuration on IOS
 ```ruby
-desc "Submit build to fabric."
-lane :alpha do
+desc "Submit build to TestFlight."
+lane :beta do
   increment_build_number
-  ...
+  # ...
   localizr(
     localizr_server: 'http://your_localizr_server',
     localizr_api_token: 'your-auth-token-from-admin-page',
@@ -71,12 +70,30 @@ lane :alpha do
     output_target_path: 'ExampleApp',
     platform: 'ios',
   )
-  ...
   gym
-  crashlytics
+  # ...
 end
 ```
-You can also use environment variables if you dont want to configure it from Fastfile:
+
+#### Sample configuration on Android
+```ruby
+lane :beta do
+  localizr(
+    localizr_server: 'http://your_localizr_server',
+    localizr_api_token: 'your-auth-token-from-admin-page',
+    locale_codes:  'en,ja,pt,zh,es',
+    localizr_app_slug: 'your-app-slug',
+    lproj_target_path: 'res'
+  ),
+  gradle(
+    task: 'assemble',
+    build_type: 'Release'
+  )
+  # ...
+end
+```
+
+### You can also use environment variables if you dont want to configure it from Fastfile:
 
 ```bash
 export FL_LOCALIZR_SERVER='http://your_localizr_server'
@@ -88,6 +105,18 @@ export FL_LOCALIZR_PLATFORM='ios'
 export FL_LOCALIZR_OUTPUT_TARGET_PATH='ExampleApp'
 ```
 
+Example:
+
+```ruby
+desc "Submit build to TestFlight."
+lane :beta do
+  increment_build_number
+  # ...
+  localizr
+  gym
+  # ...
+end
+```
 
 ### S3 Configuration
 This is optional, but you can enable this by providing valid information for the following in the environment variables.
