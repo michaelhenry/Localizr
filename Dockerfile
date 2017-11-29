@@ -12,5 +12,4 @@ ENV DJANGO_SETTINGS_MODULE LocalizrExample.settings.production
 ENV PORT 8001
 
 EXPOSE $PORT
-RUN chmod +x deploy.sh
 ENTRYPOINT sh deploy.sh
