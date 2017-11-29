@@ -9,4 +9,4 @@ if os.environ.get("ADMIN_USERNAME", None):
 EOF
 
 python manage.py collectstatic --noinput
-gunicorn -b 0.0.0.0:80 LocalizrExample.wsgi
+gunicorn LocalizrExample.wsgi
