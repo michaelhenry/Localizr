@@ -12,6 +12,7 @@ Localizr is a DSL that handles and automates localization files. Basically we gi
 - Default fallback for missing localizations.
 - Export and import to different file format.
 - Easy deployment: [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/michaelhenry/localizr)
+- Dockerized: `docker pull michaelhenry119/localizr`
 - Static files hosted in AWS S3 (Optional)
 
 
@@ -83,7 +84,7 @@ lane :beta do
     localizr_api_token: 'your-auth-token-from-admin-page',
     locale_codes:  'en,ja,pt,zh,es',
     localizr_app_slug: 'your-app-slug',
-    lproj_target_path: 'res'
+    output_target_path: 'res'
   ),
   gradle(
     task: 'assemble',
@@ -155,6 +156,46 @@ You can find the sample csv files in the [sample_data](/sample_data) folder.
 ### How about exporting?
 Just find the `EXPORT` button, select the `format` and that's it.
 
+## Deployment
+### Using Heroku
+Just click this button >++> [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/michaelhenry/localizr)
+
+
+
+### Using Docker
+sample config of `docker-compose.yml`
+```yml
+version: '3'
+
+services:
+  db:
+    image: postgres:9.4
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"  
+    environment:
+      - POSTGRES_PASSWORD=your_db_password
+
+  localizr:
+    image: michaelhenry119/localizr:1.0
+    container_name: localizr
+    ports:
+      - "80:80"
+    environment:
+      - DATABASE_URL=postgres://postgres:your_db_password@db:5432/postgres
+      - ALLOWED_HOSTS=0.0.0.0
+      # This is optional, you can assign a default then change it later from the admin page. 
+      # Or you can do it programatically after you mount the image.
+      - ADMIN_USERNAME=admin
+      - ADMIN_PASSWORD=change_me_later
+      - ADMIN_EMAIL=your_email@email.com
+    depends_on:
+      - db
+volumes:
+  pg-data:
+```
+
 
 ## Recommendation, Automation and Deployment:
 With using `CI` and `Fastlane`, create a script or use `fastlane actions localizr` to download and update all the localization strings before `gym` method, So we can always make sure that all strings are updated. 
@@ -167,9 +208,11 @@ With using `CI` and `Fastlane`, create a script or use `fastlane actions localiz
 - [x] Import/Export contents via CSV file
 - [x] CI
 - [x] Test cases
+- [x] Docker container support.
+- [ ] Snapshot support.
 - [ ] Interactive UI.
 - [ ] Able to use google translate for some missing translations.
-- [ ] Docker container support.
+
 
 ## Author
 
