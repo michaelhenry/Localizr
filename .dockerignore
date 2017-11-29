@@ -1,0 +1,26 @@
+.git
+.ipynb_checkpoints/*
+/notebooks/*
+/unused/*
+Dockerfile
+Procfile
+.DS_Store
+.gitignore
+README.md
+env.*
+/devops/*
+runtime.txt
+app.json
+.travis.yml
+
+fastlane/*
+docs/*
+sample_data/*
+
+# To prevent storing dev/temporary container data
+*.csv
+/tmp/*
+venv/*
+.env
+*.sqlite3
+__pycache__
