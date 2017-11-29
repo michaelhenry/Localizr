@@ -9,7 +9,8 @@ RUN pip install -r requirements.txt
 COPY . $PROJECT_PATH
 
 ENV DJANGO_SETTINGS_MODULE LocalizrExample.settings.production
+ENV PORT 8001
 
-EXPOSE 80
+EXPOSE $PORT
 RUN chmod +x deploy.sh
 ENTRYPOINT sh deploy.sh
