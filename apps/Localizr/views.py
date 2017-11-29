@@ -80,41 +80,12 @@ class KeyStringLocalizedView(ListAPIView):
             app = AppInfo.objects.select_related().get(slug=app_slug)
         except AppInfo.DoesNotExist:
             raise Http404("App does not exist.") 
-
         locale_code = self.kwargs['locale_code']
 
-        all_key_strings = AppInfoKeyString.objects.filter(
-            app_info__slug=app_slug,
-        )
-
-        localized_strings_query = all_key_strings.filter(
-            key_string__values__locale__code=locale_code
-        ).values(
-            'key_string__key',
-            'key_string__values__value'
-        ).order_by('key_string__key')
-
-        if app.base_locale:
-            
-            # just create a new queryset to avoid evaluation of the localized_string_query
-            localized_ids_query = all_key_strings.filter(
-                key_string__values__locale__code=locale_code
-            ).values_list(
-                'key_string__pk',
-                flat=True
-            )
-
-            # then check for missing ones by excluding the found ones
-            missing_strings_query = all_key_strings.filter(
-                key_string__values__locale__code=app.base_locale.code
-            ).exclude(key_string__pk__in=localized_ids_query).values(
-                'key_string__key',
-                'key_string__values__value'
-            )
-
-            localized_strings_query = localized_strings_query | missing_strings_query
-
-        return localized_strings_query.order_by('key_string__key')
+        return AppInfoKeyString.objects\
+            .all()\
+            .key_value_filter(app=app, locale_code=locale_code)\
+            .order_by('key_string__key')
 
 
 locale_list_view = LocaleViewSets.as_view({

@@ -94,12 +94,58 @@ class KeyString(UserInfoSavableModel):
         verbose_name_plural =    'Keys'
         
 
+class AppInfoKeyStringQuerySet(models.QuerySet):
+
+
+    def key_value_filter(self, app, locale_code):
+
+        all_key_strings = self.filter(
+            app_info__slug=app.slug,
+        )
+
+        localized_strings_query = all_key_strings.filter(
+            key_string__values__locale__code=locale_code
+        ).values(
+            'key_string__key',
+            'key_string__values__value'
+        ).order_by('key_string__key')
+
+        if app.base_locale:
+            
+            # just create a new queryset to avoid evaluation of the localized_string_query
+            localized_ids_query = all_key_strings.filter(
+                key_string__values__locale__code=locale_code
+            ).values_list(
+                'key_string__pk',
+                flat=True
+            )
+
+            # then check for missing ones by excluding the found ones
+            missing_strings_query = all_key_strings.filter(
+                key_string__values__locale__code=app.base_locale.code
+            ).exclude(key_string__pk__in=localized_ids_query).values(
+                'key_string__key',
+                'key_string__values__value'
+            )
+
+            localized_strings_query = localized_strings_query | missing_strings_query
+        return localized_strings_query
+
+
+class AppInfoKeyStringManager(models.Manager):
+
+    def get_queryset(self):
+        return AppInfoKeyStringQuerySet(self.model)
+
+
 class AppInfoKeyString(UserInfoSavableModel):
 
     key_string  =   models.ForeignKey(KeyString, on_delete=models.CASCADE)
     app_info    =   models.ForeignKey(AppInfo, 
         related_name='keys',
         on_delete=models.CASCADE)
+    
+    objects = AppInfoKeyStringManager()
 
     def __str__(self):
         return "%s" % self.key_string
