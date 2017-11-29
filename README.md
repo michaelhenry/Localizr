@@ -181,7 +181,7 @@ services:
     image: michaelhenry119/localizr:1.0
     container_name: localizr
     ports:
-      - "80:80"
+      - "80:8001"
     environment:
       - DATABASE_URL=postgres://postgres:your_db_password@db:5432/postgres
       - ALLOWED_HOSTS=0.0.0.0
