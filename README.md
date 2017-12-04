@@ -196,8 +196,11 @@ volumes:
   pg-data:
 ```
 
+## Snapshot
+Snapshot is supported by passing a query param `?snapshot=your_any_key_or_build_number` to the localizedkeystrings request.
 
-## Recommendation, Automation and Deployment:
+
+## Recommendation and Automation:
 With using `CI` and `Fastlane`, create a script or use `fastlane actions localizr` to download and update all the localization strings before `gym` method, So we can always make sure that all strings are updated. 
 
 
@@ -209,7 +212,7 @@ With using `CI` and `Fastlane`, create a script or use `fastlane actions localiz
 - [x] CI
 - [x] Test cases
 - [x] Docker container support.
-- [ ] Snapshot support.
+- [x] Snapshot support.
 - [ ] Interactive UI.
 - [ ] Able to use google translate for some missing translations.
 

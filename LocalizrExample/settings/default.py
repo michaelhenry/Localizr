@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'apps.Localizr.middlewares.LocalizrSnapshotMiddleWare',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
@@ -175,8 +176,8 @@ ADMIN_DASHBOARD_LAYOUT = {
             "Locale",
             "AppInfo",
             "KeyString",
+            "LocalizedString",
             "AppInfoKeyString",
-            "LocalizedString"
         ]
     },
     "auth": {

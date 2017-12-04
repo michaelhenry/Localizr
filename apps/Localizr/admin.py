@@ -9,6 +9,8 @@ from .models import (
     KeyString,
     AppInfoKeyString,
     LocalizedString,
+    Snapshot,
+    SnapshotFile,
     )
 
 from .resources import (
@@ -86,8 +88,23 @@ class LocalizedStringAdmin(BaseModelAdmin, ImportExportModelAdmin):
     resource_class      =    LocalizedStringResource
 
 
+class SnapshotFileInline(BaseTabularInlineModelAdmin):
+
+    model = SnapshotFile
+    extra = 1
+
+
+class SnapshotAdmin(BaseModelAdmin):
+
+    ordering            =    ('key',)
+    search_fields       =    ('key','app_slug',)
+    list_display        =    ('key' ,'app_slug','format','created',)
+    list_filter         =    ('app_slug','format',)
+
+
 admin.site.register(Locale, LocaleAdmin)
 admin.site.register(AppInfo, AppInfoAdmin)
 admin.site.register(KeyString, KeyStringAdmin)
 admin.site.register(AppInfoKeyString, AppInfoKeyStringAdmin)
 admin.site.register(LocalizedString, LocalizedStringAdmin)
+admin.site.register(Snapshot, SnapshotAdmin)admin.site.register(Snapshot, SnapshotAdmin)

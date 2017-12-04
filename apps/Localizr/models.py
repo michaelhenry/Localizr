@@ -188,3 +188,53 @@ class LocalizedString(UserInfoSavableModel):
         verbose_name_plural =    'Localized Strings'
 
 
+class Snapshot(UserInfoSavableModel):
+
+    key      = models.CharField(max_length=36,)
+    app_slug = models.CharField(max_length=30)
+    format   = models.CharField(max_length=10)
+    
+    def __str__(self):
+        return "%s" % (self.key)
+
+    def __unicode__(self):
+        return '%s' % (self.key)
+
+    class Meta(object):
+        unique_together     =    ('key', 'app_slug','format',)
+        verbose_name        =    'Snapshot'
+        verbose_name_plural =    'Snapshots'
+
+def snapshot_folder(instance,filename):
+
+    return "%s/%s/snapshots/%s/%s" % (
+        instance.snapshot.app_slug,
+        instance.snapshot.format, 
+        instance.snapshot.key, 
+        filename
+        )
+
+class SnapshotFile(UserInfoSavableModel):
+
+    snapshot    = models.ForeignKey(Snapshot, 
+        related_name='snapshots', 
+        on_delete=models.CASCADE)
+    locale_code = models.CharField(max_length=10)
+    file        = models.FileField(upload_to=snapshot_folder)
+
+    def __str__(self):
+        return "%s" % (
+            self.file.name
+            )
+
+    def __unicode__(self):
+        return "%s" % (
+            self.file.name, 
+            )
+
+    class Meta(object):
+        unique_together     =    ('snapshot', 'locale_code',)
+        verbose_name        =    'SnapshotFile'
+        verbose_name_plural =    'SnapshotFiles'
+
+
