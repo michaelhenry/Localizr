@@ -65,9 +65,12 @@ class AppInfoKeyStringResource(resources.ModelResource):
         attribute='key_string', 
         widget=KeyStringWidget(KeyString, 'key'))
 
+    value = fields.Field(column_name='value', 
+        attribute='value',)
+
     class Meta:
         model = AppInfoKeyString
         import_id_fields = ['app', 'key']
-        export_order = ('key','app')
-        fields = ('key', 'app',)
+        export_order = ('key','value','app')
+        fields = ('key','value', 'app',)
 
