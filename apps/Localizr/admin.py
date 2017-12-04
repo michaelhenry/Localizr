@@ -11,6 +11,7 @@ from .models import (
     LocalizedString,
     Snapshot,
     SnapshotFile,
+    AppUser,
     )
 
 from .resources import (
@@ -53,6 +54,17 @@ class AppInfoAdmin(BaseModelAdmin, ImportExportModelAdmin):
     prepopulated_fields =   {'slug':('name',)}
     resource_class      =   AppInfoResource
 
+    def get_queryset(self, request):
+        qs = super(AppInfoAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+
+        user_app_ids = AppUser.objects.filter(
+            user=request.user
+            ).values_list('app_info__pk', flat=True)
+        return qs.filter(pk__in=user_app_ids)
+
+
 class LocalizedStringInline(BaseTabularInlineModelAdmin):
 
     model = LocalizedString
@@ -68,6 +80,18 @@ class KeyStringAdmin(BaseModelAdmin):
 
     
 class AppInfoKeyStringAdmin(BaseModelAdmin, ImportExportModelAdmin):
+
+
+    def get_queryset(self, request):
+        qs = super(AppInfoKeyStringAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+
+        user_app_ids = AppUser.objects.filter(
+            user=request.user
+            ).values_list('app_info__pk', flat=True)
+        return qs.filter(app_info__pk__in=user_app_ids)
+        
 
     fields              =    ('app_info', 'key_string',)
     ordering            =    ('key_string__key', 'app_info',)
@@ -102,9 +126,19 @@ class SnapshotAdmin(BaseModelAdmin):
     list_filter         =    ('app_slug','format',)
 
 
+class AppUserAdmin(BaseModelAdmin):
+
+    ordering            =    ('user',)
+    search_fields       =    ('app_info','user',)
+    list_display        =    ('user' ,'app_info',)
+    list_filter         =    ('app_info',)
+    autocomplete_fields =    ['app_info', 'user']
+
+
 admin.site.register(Locale, LocaleAdmin)
 admin.site.register(AppInfo, AppInfoAdmin)
 admin.site.register(KeyString, KeyStringAdmin)
 admin.site.register(AppInfoKeyString, AppInfoKeyStringAdmin)
 admin.site.register(LocalizedString, LocalizedStringAdmin)
-admin.site.register(Snapshot, SnapshotAdmin)admin.site.register(Snapshot, SnapshotAdmin)
+admin.site.register(Snapshot, SnapshotAdmin)
+admin.site.register(AppUser, AppUserAdmin)

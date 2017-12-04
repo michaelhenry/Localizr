@@ -238,3 +238,11 @@ class SnapshotFile(UserInfoSavableModel):
         verbose_name_plural =    'SnapshotFiles'
 
 
+class AppUser(UserInfoSavableModel):
+
+    app_info = models.ForeignKey(AppInfo, 
+        on_delete=models.CASCADE)
+    user     = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,)
+
