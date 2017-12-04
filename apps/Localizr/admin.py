@@ -1,5 +1,5 @@
 from django.contrib import admin
-
+from django.db.models import Q, OuterRef, Subquery
 from import_export.admin import ImportExportModelAdmin
 
 from .models import (
@@ -12,6 +12,7 @@ from .models import (
     Snapshot,
     SnapshotFile,
     AppUser,
+    AppUserGroup,
     )
 
 from .resources import (
@@ -62,7 +63,11 @@ class AppInfoAdmin(BaseModelAdmin, ImportExportModelAdmin):
         user_app_ids = AppUser.objects.filter(
             user=request.user
             ).values_list('app_info__pk', flat=True)
-        return qs.filter(pk__in=user_app_ids)
+
+        group_app_ids = AppUserGroup.objects.filter(
+            group_id__in=request.user.groups.values_list('id', flat=True)
+            ).values_list('app_info__pk', flat=True)
+        return qs.filter(Q(pk__in=group_app_ids) | Q(pk__in=user_app_ids))
 
 
 class LocalizedStringInline(BaseTabularInlineModelAdmin):
@@ -78,19 +83,29 @@ class KeyStringAdmin(BaseModelAdmin):
     list_display        =    ('key' ,'description',)
     inlines             =    [LocalizedStringInline,]
 
-    
+
 class AppInfoKeyStringAdmin(BaseModelAdmin, ImportExportModelAdmin):
 
 
     def get_queryset(self, request):
         qs = super(AppInfoKeyStringAdmin, self).get_queryset(request)
+
+        base_value = LocalizedString.objects.filter(
+            locale=OuterRef('app_info__base_locale'),
+            key_string=OuterRef('key_string'),
+        ).values_list('value',flat=True)
+
         if request.user.is_superuser:
-            return qs
+            return qs.annotate(value=Subquery(base_value))
 
         user_app_ids = AppUser.objects.filter(
             user=request.user
             ).values_list('app_info__pk', flat=True)
-        return qs.filter(app_info__pk__in=user_app_ids)
+
+        group_app_ids = AppUserGroup.objects.filter(
+            group_id__in=request.user.groups.values_list('id', flat=True)
+            ).values_list('app_info__pk', flat=True)
+        return qs.filter(Q(pk__in=group_app_ids) | Q(pk__in=user_app_ids)).annotate(value=Subquery(base_value))
         
 
     fields              =    ('app_info', 'key_string',)
@@ -135,6 +150,15 @@ class AppUserAdmin(BaseModelAdmin):
     autocomplete_fields =    ['app_info', 'user']
 
 
+class AppUserGroupAdmin(BaseModelAdmin):
+
+    ordering            =    ('group',)
+    search_fields       =    ('app_info','group',)
+    list_display        =    ('group' ,'app_info',)
+    list_filter         =    ('app_info',)
+    autocomplete_fields =    ['app_info', 'group']
+
+
 admin.site.register(Locale, LocaleAdmin)
 admin.site.register(AppInfo, AppInfoAdmin)
 admin.site.register(KeyString, KeyStringAdmin)
@@ -142,3 +166,4 @@ admin.site.register(AppInfoKeyString, AppInfoKeyStringAdmin)
 admin.site.register(LocalizedString, LocalizedStringAdmin)
 admin.site.register(Snapshot, SnapshotAdmin)
 admin.site.register(AppUser, AppUserAdmin)
+admin.site.register(AppUserGroup, AppUserGroupAdmin)

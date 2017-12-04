@@ -1,5 +1,6 @@
 from rest_framework import viewsets
 from rest_framework.generics import ListAPIView
+
 from django.http import Http404
 
 from .serializers import (
@@ -13,7 +14,8 @@ from .models import (
     Locale, 
     AppInfo, 
     KeyString, 
-    AppInfoKeyString
+    AppInfoKeyString,
+    LocalizedString,
     )
 
 from rest_framework.renderers import (
@@ -75,17 +77,16 @@ class KeyStringLocalizedView(ListAPIView):
 
         app = None
         app_slug = self.kwargs['app_slug']
+        locale_code = self.kwargs['locale_code']
 
         try:
             app = AppInfo.objects.select_related().get(slug=app_slug)
         except AppInfo.DoesNotExist:
             raise Http404("App does not exist.") 
-        locale_code = self.kwargs['locale_code']
-
         return AppInfoKeyString.objects\
-            .all()\
-            .key_value_filter(app=app, locale_code=locale_code)\
-            .order_by('key_string__key')
+            .filter(app_info=app)\
+            .filter_by_locale_code(locale_code=locale_code)\
+            .order_by('key')
 
 
 locale_list_view = LocaleViewSets.as_view({

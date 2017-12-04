@@ -77,7 +77,7 @@ class KeyValueSerializer(serializers.Serializer):
 	value = serializers.SerializerMethodField()
 
 	def get_key(self, obj):
-		return obj['key_string__key']
+		return obj[0]
 	
 	def get_value(self, obj):
-		return obj['key_string__values__value']
+		return obj[1]

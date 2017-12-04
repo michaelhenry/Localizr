@@ -1,4 +1,7 @@
 from django.db import models
+from django.db.models.functions import Coalesce
+from django.db.models import Q, F, OuterRef, Subquery
+from django.contrib.auth.models import Group
 from django.conf import settings
 from django.utils import timezone
 
@@ -97,39 +100,27 @@ class KeyString(UserInfoSavableModel):
 class AppInfoKeyStringQuerySet(models.QuerySet):
 
 
-    def key_value_filter(self, app, locale_code):
+    def filter_by_locale_code(self, locale_code):
 
-        all_key_strings = self.filter(
-            app_info__slug=app.slug,
-        )
+        base_value = LocalizedString.objects.filter(
+            locale=OuterRef('app_info__base_locale')
+        ).filter(
+            key_string=OuterRef('key_string'),
+        ).values_list('value',flat=True)
 
-        localized_strings_query = all_key_strings.filter(
-            key_string__values__locale__code=locale_code
-        ).values(
-            'key_string__key',
-            'key_string__values__value'
-        ).order_by('key_string__key')
+        value = LocalizedString.objects.filter(
+            locale__code=locale_code
+        ).filter(
+            key_string=OuterRef('key_string'),
+        ).values_list('value',flat=True)
 
-        if app.base_locale:
-            
-            # just create a new queryset to avoid evaluation of the localized_string_query
-            localized_ids_query = all_key_strings.filter(
-                key_string__values__locale__code=locale_code
-            ).values_list(
-                'key_string__pk',
-                flat=True
-            )
-
-            # then check for missing ones by excluding the found ones
-            missing_strings_query = all_key_strings.filter(
-                key_string__values__locale__code=app.base_locale.code
-            ).exclude(key_string__pk__in=localized_ids_query).values(
-                'key_string__key',
-                'key_string__values__value'
-            )
-
-            localized_strings_query = localized_strings_query | missing_strings_query
-        return localized_strings_query
+        return self\
+            .annotate(
+                key=F('key_string__key'), 
+                value=Coalesce(
+                    Subquery(value), 
+                    Subquery(base_value)))\
+            .values_list('key','value')
 
 
 class AppInfoKeyStringManager(models.Manager):
@@ -147,14 +138,9 @@ class AppInfoKeyString(UserInfoSavableModel):
     
     objects = AppInfoKeyStringManager()
 
+    # just placeholder
     def value(self):
-        try:
-            return LocalizedString.objects.filter(
-                locale=self.app_info.base_locale, 
-                key_string=self.key_string
-            ).first()
-        except:
-            return ""
+        return ""
 
     def __str__(self):
         return "%s" % self.key_string
@@ -260,4 +246,26 @@ class AppUser(UserInfoSavableModel):
         unique_together     =    ('app_info', 'user',)
         verbose_name        =    'User-App Permission'
         verbose_name_plural =    'User-App Permissions'
+
+class AppUserGroup(UserInfoSavableModel):
+
+    app_info = models.ForeignKey(AppInfo, 
+        on_delete=models.CASCADE)
+    group     = models.ForeignKey(Group,
+        on_delete=models.CASCADE,)
+
+    def __str__(self):
+        return "%s|%s" % (
+            self.group.name, self.app_info.slug
+            )
+
+    def __unicode__(self):
+        return "%s|%s" % (
+            self.group.name, self.app_info.slug
+            )
+
+    class Meta(object):
+        unique_together     =    ('app_info', 'group',)
+        verbose_name        =    'User-Group-App Permission'
+        verbose_name_plural =    'User-Group-App Permissions'
 
