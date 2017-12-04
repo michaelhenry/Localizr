@@ -12,4 +12,4 @@ ENV DJANGO_SETTINGS_MODULE LocalizrExample.settings.production
 ENV PORT 8001
 
 EXPOSE $PORT
-ENTRYPOINT sh deploy.sh
+ENTRYPOINT sh entrypoint-docker.sh

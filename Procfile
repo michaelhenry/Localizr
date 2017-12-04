@@ -1,1 +1,1 @@
-web: sh deploy.sh
+web: sh entrypoint-heroku.sh
