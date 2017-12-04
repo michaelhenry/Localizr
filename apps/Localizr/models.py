@@ -246,3 +246,18 @@ class AppUser(UserInfoSavableModel):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,)
 
+    def __str__(self):
+        return "%s|%s" % (
+            self.user.username, self.app_info.slug
+            )
+
+    def __unicode__(self):
+        return "%s|%s" % (
+            self.user.username, self.app_info.slug
+            )
+
+    class Meta(object):
+        unique_together     =    ('app_info', 'user',)
+        verbose_name        =    'User-App Permission'
+        verbose_name_plural =    'User-App Permissions'
+
