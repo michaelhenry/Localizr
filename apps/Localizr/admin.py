@@ -62,11 +62,11 @@ class AppInfoAdmin(BaseModelAdmin, ImportExportModelAdmin):
 
         user_app_ids = AppUser.objects.filter(
             user=request.user
-            ).values_list('app_info__pk', flat=True)
+        ).values_list('app_info__pk', flat=True)
 
         group_app_ids = AppUserGroup.objects.filter(
             group_id__in=request.user.groups.values_list('id', flat=True)
-            ).values_list('app_info__pk', flat=True)
+        ).values_list('app_info__pk', flat=True)
         return qs.filter(Q(pk__in=group_app_ids) | Q(pk__in=user_app_ids))
 
 
@@ -100,12 +100,16 @@ class AppInfoKeyStringAdmin(BaseModelAdmin, ImportExportModelAdmin):
 
         user_app_ids = AppUser.objects.filter(
             user=request.user
-            ).values_list('app_info__pk', flat=True)
+        ).values_list('app_info__pk', flat=True)
 
         group_app_ids = AppUserGroup.objects.filter(
             group_id__in=request.user.groups.values_list('id', flat=True)
-            ).values_list('app_info__pk', flat=True)
-        return qs.filter(Q(pk__in=group_app_ids) | Q(pk__in=user_app_ids)).annotate(value=Subquery(base_value))
+        ).values_list('app_info__pk', flat=True)
+
+        return qs.filter(
+            Q(app_info__pk__in=group_app_ids) | 
+            Q(app_info__pk__in=user_app_ids)
+            ).annotate(value=Subquery(base_value))
         
 
     fields              =    ('app_info', 'key_string',)
