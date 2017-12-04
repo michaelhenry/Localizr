@@ -70,7 +70,7 @@ class AppInfoKeyStringAdmin(BaseModelAdmin, ImportExportModelAdmin):
     fields              =    ('app_info', 'key_string',)
     ordering            =    ('app_info', 'key_string',)
     search_fields       =    ('key_string__key',)
-    list_display        =    ('key_string' ,'app_info',)
+    list_display        =    ('key_string', 'value', 'app_info',)
     list_filter         =    ('app_info',)
     autocomplete_fields =    ['key_string', 'app_info']
     resource_class      =    AppInfoKeyStringResource

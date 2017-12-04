@@ -147,6 +147,15 @@ class AppInfoKeyString(UserInfoSavableModel):
     
     objects = AppInfoKeyStringManager()
 
+    def value(self):
+        try:
+            return LocalizedString.objects.filter(
+                locale=self.app_info.base_locale, 
+                key_string=self.key_string
+            ).first()
+        except:
+            return ""
+
     def __str__(self):
         return "%s" % self.key_string
 
