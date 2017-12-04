@@ -112,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tokyo'
 
 USE_I18N = True
 
@@ -173,6 +173,9 @@ ADMIN_DASHBOARD_LAYOUT = {
     "Localizr": {
         "sequence":0,
         "models":[
+            "AppUser",
+            "AppUserGroup",
+            "Snapshot",
             "Locale",
             "AppInfo",
             "KeyString",
