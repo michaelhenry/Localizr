@@ -68,7 +68,7 @@ class KeyStringAdmin(BaseModelAdmin):
 class AppInfoKeyStringAdmin(BaseModelAdmin, ImportExportModelAdmin):
 
     fields              =    ('app_info', 'key_string',)
-    ordering            =    ('app_info', 'key_string',)
+    ordering            =    ('key_string__key', 'app_info',)
     search_fields       =    ('key_string__key',)
     list_display        =    ('key_string', 'value', 'app_info',)
     list_filter         =    ('app_info',)
@@ -78,7 +78,7 @@ class AppInfoKeyStringAdmin(BaseModelAdmin, ImportExportModelAdmin):
 
 class LocalizedStringAdmin(BaseModelAdmin, ImportExportModelAdmin):
 
-    ordering            =    ('key_string', 'locale', 'value',)
+    ordering            =    ('key_string__key', 'value', 'locale',)
     search_fields       =    ('key_string__key', 'value',)
     list_display        =    ('value', 'key_string', 'locale',)
     list_filter         =    ('locale',)
