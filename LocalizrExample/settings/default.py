@@ -134,7 +134,7 @@ MEDIA_URL  = '/media/'
 REST_FRAMEWORK = {
 
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        'LocalizrExample.permissions.IsAuthenticatedOrOptionsRequest',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
