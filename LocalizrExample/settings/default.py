@@ -53,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'apps.Localizr.middlewares.LocalizrSnapshotMiddleWare',
+    'apps.Localizr.middlewares.CorsMiddleWare',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
