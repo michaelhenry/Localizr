@@ -9,6 +9,7 @@ from .serializers import (
     KeyStringSerializer, 
     AppInfoKeyStringSerializer,
     KeyValueSerializer,
+    LocalizedStringSerializer,
     )
 from .models import (
     Locale, 
@@ -29,7 +30,7 @@ from .renderers import (
     )
 
 
-class LocaleViewSets(viewsets.ModelViewSet):
+class LocaleViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows Locale to be viewed or edited.
     """
@@ -37,14 +38,14 @@ class LocaleViewSets(viewsets.ModelViewSet):
     serializer_class = LocaleSerializer
 
 
-class AppInfoViewSets(viewsets.ModelViewSet):
+class AppInfoViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows AppInfo to be viewed or edited.
     """
     queryset         = AppInfo.objects.all()
     serializer_class = AppInfoSerializer
 
-class KeyStringViewSets(viewsets.ModelViewSet):
+class KeyStringViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows KeyString to be viewed or edited.
     """
@@ -52,12 +53,26 @@ class KeyStringViewSets(viewsets.ModelViewSet):
     serializer_class = KeyStringSerializer
 
 
-class AppInfoKeyStringViewSets(viewsets.ModelViewSet):
+class AppInfoKeyStringViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows AppInfoKeyString to be viewed or edited.
     """
     queryset         = AppInfoKeyString.objects.all()
     serializer_class = AppInfoKeyStringSerializer
+
+
+class AppInfoKeyStringViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows AppInfoKeyString to be viewed or edited.
+    """
+    queryset         = AppInfoKeyString.objects.all()
+    serializer_class = AppInfoKeyStringSerializer
+
+
+class LocalizedStringViewSet(viewsets.ModelViewSet):
+
+    queryset         = LocalizedString.objects.all()
+    serializer_class = LocalizedStringSerializer
 
 
 class KeyStringLocalizedView(ListAPIView):
@@ -89,24 +104,24 @@ class KeyStringLocalizedView(ListAPIView):
             .order_by('key')
 
 
-locale_list_view = LocaleViewSets.as_view({
+locale_list_view = LocaleViewSet.as_view({
     'get': 'list',
     'post': 'create',
     })
 
-locale_detail_view = LocaleViewSets.as_view({
+locale_detail_view = LocaleViewSet.as_view({
     'get'   :   'retrieve',
     'put'   :   'update',
     'patch' :   'partial_update',
     'delete':   'destroy',
     })
 
-app_info_list_view = AppInfoViewSets.as_view({
+app_info_list_view = AppInfoViewSet.as_view({
     'get'   :   'list',
     'post'  :   'create',
     })
 
-app_info_detail_view = AppInfoViewSets.as_view({
+app_info_detail_view = AppInfoViewSet.as_view({
     'get'   :   'retrieve',
     'put'   :   'update',
     'patch' :   'partial_update',
@@ -114,24 +129,36 @@ app_info_detail_view = AppInfoViewSets.as_view({
     })
 
 
-key_string_list_view = KeyStringViewSets.as_view({
+key_string_list_view = KeyStringViewSet.as_view({
     'get'   :   'list',
     'post'  :   'create',
     })
 
-key_string_detail_view = KeyStringViewSets.as_view({
+key_string_detail_view = KeyStringViewSet.as_view({
     'get'   :   'retrieve',
     'put'   :   'update',
     'patch' :   'partial_update',
     'delete':   'destroy',
     })
 
-app_info_key_string_list_view = AppInfoKeyStringViewSets.as_view({
+app_info_key_string_list_view = AppInfoKeyStringViewSet.as_view({
     'get'   :   'list',
     'post'  :   'create',
     })
 
-app_info_key_string_detail_view = AppInfoKeyStringViewSets.as_view({
+app_info_key_string_detail_view = AppInfoKeyStringViewSet.as_view({
+    'get'   :   'retrieve',
+    'put'   :   'update',
+    'patch' :   'partial_update',
+    'delete':   'destroy',
+    })
+
+localized_string_list_view = LocalizedStringViewSet.as_view({
+    'get'   :   'list',
+    'post'  :   'create',
+    })
+
+localized_string_detail_view = LocalizedStringViewSet.as_view({
     'get'   :   'retrieve',
     'put'   :   'update',
     'patch' :   'partial_update',
