@@ -56,6 +56,7 @@ class KeyStringSerializer(serializers.ModelSerializer):
 			)
 
 
+
 class AppInfoKeyStringSerializer(serializers.ModelSerializer):
 	
 	"""
@@ -68,6 +69,22 @@ class AppInfoKeyStringSerializer(serializers.ModelSerializer):
 			'id', 
 			'app_info', 
 			'key_string',
+			)
+
+
+class LocalizedStringSerializer(serializers.ModelSerializer):
+	
+	"""
+	LocalizedString
+	"""
+
+	class Meta:
+		model = LocalizedString
+		fields = (
+			'id', 
+			'key_string', 
+			'locale',
+			'value',
 			)
 
 
