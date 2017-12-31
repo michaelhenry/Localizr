@@ -16,6 +16,8 @@ from apps.Localizr.views import (
   app_info_key_string_list_view,
   app_info_key_string_detail_view,
   key_value_list_view,
+  localized_string_list_view,
+  localized_string_detail_view,
   )
 
 urlpatterns = [
@@ -39,8 +41,9 @@ urlpatterns += [
   path('v1/keys/<int:pk>', key_string_detail_view, name='key-string-detail'),
   path('v1/app-key-strings/', app_info_key_string_list_view, name='app-key-strings-list'),
   path('v1/app-key-strings/<int:pk>', app_info_key_string_detail_view, name='app-key-strings-detail'),
+  path('v1/localized-strings/', localized_string_list_view, name='localized-string-list'),
+  path('v1/localized-strings/<int:pk>', localized_string_detail_view, name='localized-string-detail'),
   path('app/<slug:app_slug>.<slug:locale_code>', key_value_list_view, name='key-value-list'),
-
   path('v1/login/', login_view, name='login'),
 
  ]
