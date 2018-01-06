@@ -50,26 +50,31 @@
         </div>
     {% endfor %}
 
+    {% if request.get_full_path == '/' %}
      <div class="app-about module">
         <table>
         <caption style="color:#ffffff">
-            ABOUT THIS TOOL
+            ABOUT LOCALIZR
         </caption>
             <tr>
-                <th scope="row">Github Page</th>
-                <td><a href="https://github.com/michaelhenry/Localizr">View</a></td>
+                <th scope="row"><a href="https://github.com/michaelhenry/Localizr">Documentation</a></th>
+                <td />
             </tr>
             <tr>
-                <th scope="row">Documentation</th>
-                <td><a href="https://github.com/michaelhenry/Localizr">View</a></td>
+                <th scope="row"><a href="https://github.com/michaelhenry/Localizr/graphs/contributors">Contributors</a></th>
+                <td />
             </tr>
             <tr>
-                <th scope="row">Contributors</th>
-                <td><a href="https://github.com/michaelhenry/Localizr/graphs/contributors">View</a></td>
+                <th scope="row"><a href="https://github.com/michaelhenry/Localizr">Github Page</a></th>
+                <td />
             </tr>
-  
+            <tr>
+                <th scope="row"><a href="https://github.com/michaelhenry/Localizr/issues/new">Submit an issue</a></th>
+                <td />
+            </tr>
         </table>
     </div>
+    {% endif %}
 
 {% else %}
     <p>{% trans "You don't have permission to edit anything." %}</p>
