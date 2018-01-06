@@ -2,7 +2,9 @@
 {% extends "admin/base_site.html" %}
 {% load i18n static localizr_extras %}
 
-{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}" />{% endblock %}
+{% block extrastyle %}{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}" />
+{% endblock %}
 
 {% block coltype %}colMS{% endblock %}
 
@@ -47,6 +49,28 @@
         </table>
         </div>
     {% endfor %}
+
+     <div class="app-about module">
+        <table>
+        <caption style="color:#ffffff">
+            ABOUT THIS TOOL
+        </caption>
+            <tr>
+                <th scope="row">Github Page</th>
+                <td><a href="https://github.com/michaelhenry/Localizr">View</a></td>
+            </tr>
+            <tr>
+                <th scope="row">Documentation</th>
+                <td><a href="https://github.com/michaelhenry/Localizr">View</a></td>
+            </tr>
+            <tr>
+                <th scope="row">Contributors</th>
+                <td><a href="https://github.com/michaelhenry/Localizr/graphs/contributors">View</a></td>
+            </tr>
+  
+        </table>
+    </div>
+
 {% else %}
     <p>{% trans "You don't have permission to edit anything." %}</p>
 {% endif %}
