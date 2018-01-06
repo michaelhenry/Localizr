@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/michaelhenry/Localizr.svg?branch=master)](https://travis-ci.org/michaelhenry/Localizr)
 
-Localizr is a DSL that handles and automates localization files. Basically we give limited access to the translators to let them input or upload different keystrings and the developer will just fetch it on development or deployment only when if there is an update or changes. This will lessen or prevent the mistake that developer made because he/she has no clue what are those words are and most of them (including me, but not all) are just copy pasting those words (especially when it comes to chinese or japanese characters) from excel to the Localizable.strings via Xcode.
+Localizr is a Tool that handles and automates localization files. Basically we give limited access to the translators to let them input or upload different keystrings and the developer will just fetch it on development or deployment only when if there is an update or changes. This will lessen or prevent the mistake that developer made because he/she has no clue what are those words are and most of them (including me, but not all) are just copy pasting those words (especially when it comes to chinese or japanese characters) from excel to the Localizable.strings via Xcode.
       
 
 ## Features
