@@ -1,6 +1,8 @@
 import re
 from datetime import datetime
 from rest_framework import renderers
+from xml.sax.saxutils import escape
+
 
 class KeyStringBaseRenderer(renderers.BaseRenderer):
 
@@ -73,7 +75,7 @@ class KeyStringAndroidRenderer(KeyStringBaseRenderer):
         #search for existing ios sequence pattern and convert it to android.
         sequence_pattern_regex_for_ios = re.compile('([%]\d[$][@])', re.S)
         v = sequence_pattern_regex_for_ios.sub(lambda m: m.group().replace('@',"1s"), v)
-        
+        v = escape(v)
         return v
 
     def render(self, data, media_type=None, renderer_context=None):
