@@ -18,6 +18,13 @@ class KeyStringBaseRenderer(renderers.BaseRenderer):
     "(https://github.com/michaelhenry/Localizr)\n" \
     "%s\n" % (datetime.utcnow().strftime("%Y-%m-%d %H:%M %Z"))
 
+def escape_quotes(text):
+
+  s = text
+  s = s.replace("'", "\\'")
+  s = s.replace('"', '\\"')
+  print(s)
+  return s
 
 class KeyStringIOSRenderer(KeyStringBaseRenderer):
 
@@ -28,7 +35,9 @@ class KeyStringIOSRenderer(KeyStringBaseRenderer):
   value_name  = 'value'
 
   def process_key(self, key):
-    return str(key)
+    s = str(key)
+    s = escape_quotes(s)
+    return s
 
   def process_value(self, value):
 
@@ -38,6 +47,7 @@ class KeyStringIOSRenderer(KeyStringBaseRenderer):
     #search for existing android sequence pattern and convert it to ios.
     sequence_pattern_regex_for_android = re.compile('([%]\d+[$]\d+[s])', re.S)
     v = sequence_pattern_regex_for_android.sub(lambda m: re.sub(r'\d+s', '@', m.group()), v)
+    v = escape_quotes(v)
     return v
 
   def render(self, data, media_type=None, renderer_context=None):
@@ -75,6 +85,7 @@ class KeyStringAndroidRenderer(KeyStringBaseRenderer):
     sequence_pattern_regex_for_ios = re.compile('([%]\d[$][@])', re.S)
     v = sequence_pattern_regex_for_ios.sub(lambda m: m.group().replace('@',"1s"), v)
     v = escape(v)
+    v = escape_quotes(v)
     return v
 
   def render(self, data, media_type=None, renderer_context=None):
