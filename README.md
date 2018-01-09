@@ -178,7 +178,7 @@ services:
       - POSTGRES_PASSWORD=your_db_password
 
   localizr:
-    image: michaelhenry119/localizr:1.0
+    image: michaelhenry119/localizr:latest
     container_name: localizr
     ports:
       - "80:8001"
