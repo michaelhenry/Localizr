@@ -269,3 +269,24 @@ class AppUserGroup(UserInfoSavableModel):
         verbose_name        =    'User-Group-App Permission'
         verbose_name_plural =    'User-Group-App Permissions'
 
+
+# Extension method for AppInfo.objects
+def user_app_ids_query(user):
+
+    q = None
+    if user.is_superuser:
+        q = AppInfo.objects.all()
+    else:
+        user_app_ids = AppUser.objects.filter(
+            user=user
+        ).values_list('app_info__pk', flat=True)
+
+        group_app_ids = AppUserGroup.objects.filter(
+            group_id__in=user.groups.values_list('id', flat=True)
+        ).values_list('app_info__pk', flat=True)
+
+        q = AppInfo.objects.filter(Q(pk__in=group_app_ids) | Q(pk__in=user_app_ids))
+    return q.values_list('id')
+
+setattr(AppInfo.objects, "user_app_ids_query", user_app_ids_query)
+

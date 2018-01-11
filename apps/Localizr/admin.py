@@ -121,6 +121,26 @@ class AppInfoKeyStringAdmin(BaseModelAdmin, ImportExportModelAdmin):
     resource_class      =    AppInfoKeyStringResource
 
 
+class AppLocalizedStringListFilter(admin.SimpleListFilter):
+
+    title = "Apps"
+    parameter_name = "app_info"
+
+    def lookups(self, request, model_admin):
+        user_app_ids = AppInfo.objects.user_app_ids_query(request.user)
+        q = AppInfo.objects.filter(pk__in=user_app_ids)
+        return q.order_by('name').values_list('id','name')
+
+    def queryset(self, request, queryset):
+
+        if self.value():
+            keystring_ids = AppInfoKeyString.objects.filter(app_info__pk=self.value()).values_list('key_string__pk', flat=True)
+            return queryset.filter(key_string__pk__in=keystring_ids)
+        else:
+            user_app_ids = AppInfo.objects.user_app_ids_query(request.user)
+            keystring_ids = AppInfoKeyString.objects.filter(app_info__pk__in=user_app_ids).values_list('key_string__pk', flat=True)
+            return queryset.filter(key_string__pk__in=keystring_ids)
+
 class LocalizedStringAdmin(BaseModelAdmin, ImportExportModelAdmin):
 
     def get_queryset(self, request):
@@ -128,25 +148,17 @@ class LocalizedStringAdmin(BaseModelAdmin, ImportExportModelAdmin):
         if request.user.is_superuser:
             return qs
 
-        user_app_ids = AppUser.objects.filter(
-            user=request.user
-        ).values_list('app_info__pk', flat=True)
-
-        group_app_ids = AppUserGroup.objects.filter(
-            group_id__in=request.user.groups.values_list('id', flat=True)
-        ).values_list('app_info__pk', flat=True)
-
+        user_app_ids = AppInfo.objects.user_app_ids_query(request.user)
         keystring_ids = AppInfoKeyString.objects.filter(
-            Q(app_info__pk__in=group_app_ids) | Q(app_info__pk__in=user_app_ids)
+            app_info__pk__in=user_app_ids
         ).values_list('key_string__pk', flat=True)
-
         return qs.filter(Q(key_string__pk__in=keystring_ids))
 
 
     ordering            =    ('key_string__key', 'value', 'locale',)
     search_fields       =    ('key_string__key', 'value',)
     list_display        =    ('value', 'key_string', 'locale',)
-    list_filter         =    ('locale',)
+    list_filter         =    ('locale', AppLocalizedStringListFilter)
     autocomplete_fields =    ['key_string', 'locale']
     resource_class      =    LocalizedStringResource
 
