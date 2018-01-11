@@ -59,15 +59,8 @@ class AppInfoAdmin(BaseModelAdmin, ImportExportModelAdmin):
         qs = super(AppInfoAdmin, self).get_queryset(request)
         if request.user.is_superuser:
             return qs
-
-        user_app_ids = AppUser.objects.filter(
-            user=request.user
-        ).values_list('app_info__pk', flat=True)
-
-        group_app_ids = AppUserGroup.objects.filter(
-            group_id__in=request.user.groups.values_list('id', flat=True)
-        ).values_list('app_info__pk', flat=True)
-        return qs.filter(Q(pk__in=group_app_ids) | Q(pk__in=user_app_ids))
+        user_app_ids = AppInfo.objects.user_app_ids_query(request.user)
+        return qs.filter(pk__in=user_app_ids)
 
 
 class LocalizedStringInline(BaseTabularInlineModelAdmin):
@@ -84,6 +77,25 @@ class KeyStringAdmin(BaseModelAdmin):
     inlines             =    [LocalizedStringInline,]
 
 
+class AppInfoKeyStringListFilter(admin.SimpleListFilter):
+
+    title = "Apps"
+    parameter_name = "app_info"
+
+    def lookups(self, request, model_admin):
+        user_app_ids = AppInfo.objects.user_app_ids_query(request.user)
+        q = AppInfo.objects.filter(pk__in=user_app_ids)
+        return q.order_by('name').values_list('id','name')
+
+    def queryset(self, request, queryset):
+
+        if self.value():
+            return queryset.filter(app_info__pk=self.value())
+        else:
+            user_app_ids = AppInfo.objects.user_app_ids_query(request.user)
+            return queryset.filter(app_info__pk__in=user_app_ids)
+
+
 class AppInfoKeyStringAdmin(BaseModelAdmin, ImportExportModelAdmin):
 
 
@@ -98,17 +110,10 @@ class AppInfoKeyStringAdmin(BaseModelAdmin, ImportExportModelAdmin):
         if request.user.is_superuser:
             return qs.annotate(value=Subquery(base_value))
 
-        user_app_ids = AppUser.objects.filter(
-            user=request.user
-        ).values_list('app_info__pk', flat=True)
-
-        group_app_ids = AppUserGroup.objects.filter(
-            group_id__in=request.user.groups.values_list('id', flat=True)
-        ).values_list('app_info__pk', flat=True)
+        user_app_ids = AppInfo.objects.user_app_ids_query(request.user)
 
         return qs.filter(
-            Q(app_info__pk__in=group_app_ids) | 
-            Q(app_info__pk__in=user_app_ids)
+                app_info__pk__in=user_app_ids
             ).annotate(value=Subquery(base_value))
         
 
@@ -116,7 +121,7 @@ class AppInfoKeyStringAdmin(BaseModelAdmin, ImportExportModelAdmin):
     ordering            =    ('key_string__key', 'app_info',)
     search_fields       =    ('key_string__key',)
     list_display        =    ('key_string', 'value', 'app_info',)
-    list_filter         =    ('app_info',)
+    list_filter         =    (AppInfoKeyStringListFilter, )
     autocomplete_fields =    ['key_string', 'app_info']
     resource_class      =    AppInfoKeyStringResource
 
