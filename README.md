@@ -18,6 +18,7 @@ Localizr is a Tool that handles and automates localization files. Basically we g
 - Easy deployment: [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/michaelhenry/localizr)
 - Dockerized: `docker pull michaelhenry119/localizr`
 - Static files hosted in AWS S3 (Optional)
+- Snapshots
 
 
 ## DEMO
@@ -131,7 +132,7 @@ export AWS_SECRET_ACCESS_KEY='Your secret key'
 export AWS_STORAGE_BUCKET_NAME='Name of the bucket'
 ```
 
-## For Non-Developers
+## For Non-Developers, Translators or even Developers.
 ### How to use Localizr?
 
 1. Create different `Locales` set the `name` and the `code`.
