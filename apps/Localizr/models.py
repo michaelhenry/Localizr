@@ -7,8 +7,8 @@ from django.utils import timezone
 
 class UserInfoSavableModel(models.Model):
 
-    created     =   models.DateTimeField(auto_now=True)
-    modified    =   models.DateTimeField(auto_now_add=True)
+    created     =   models.DateTimeField(auto_now_add=True)
+    modified    =   models.DateTimeField(auto_now=True)
 
     created_by  = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -29,6 +29,23 @@ class UserInfoSavableModel(models.Model):
     class Meta:
         abstract = True
 
+
+class HasStatusFlag(models.Model):
+
+    STATUS_PUBLISHED = 0
+    STATUS_PENDING = 1
+    STATUS_DRAFT = 3
+
+    STATUS_TYPE = (
+        (STATUS_PUBLISHED, 'Published'),
+        (STATUS_PENDING, 'Pending'),
+        (STATUS_DRAFT, 'Draft'),
+    )
+
+    status = models.IntegerField(choices = STATUS_TYPE, default=STATUS_DRAFT)
+
+    class Meta:
+        abstract = True
 
 class Locale(UserInfoSavableModel):
 
@@ -154,7 +171,7 @@ class AppInfoKeyString(UserInfoSavableModel):
         verbose_name_plural =    'App \'s Keys'
 
 
-class LocalizedString(UserInfoSavableModel):
+class LocalizedString(UserInfoSavableModel, HasStatusFlag):
 
     locale      =   models.ForeignKey(Locale, on_delete=models.CASCADE)
     value       =   models.CharField(max_length=1000)

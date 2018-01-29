@@ -75,6 +75,30 @@ class KeyStringAdmin(BaseModelAdmin):
     search_fields       =    ('key','description',)
     list_display        =    ('key' ,'description',)
     inlines             =    [LocalizedStringInline,]
+    readonly_fields     =    ('modified_by', 'modified', 'created_by', 'created',)
+
+    fieldsets = (
+        ('KeyString', {
+            'fields': ('key', 'description',)
+        }),
+        ('Metadata (Read-only)', {
+            'fields': ('created_by', 'created', 'modified_by', 'modified',)
+        }),
+    )
+
+    def save_model(self, request, obj, form, change):
+
+        if change:
+            obj.modified_by = request.user
+        else:
+            obj.created_by = request.user
+
+        for v in obj.values.all():
+            if not v.created_by:
+                v.created_by = request.user
+            else:
+                v.modified_by = request.user
+            v.save()
 
 
 class AppInfoKeyStringListFilter(admin.SimpleListFilter):
@@ -159,13 +183,29 @@ class LocalizedStringAdmin(BaseModelAdmin, ImportExportModelAdmin):
         ).values_list('key_string__pk', flat=True)
         return qs.filter(Q(key_string__pk__in=keystring_ids))
 
+    def save_model(self, request, obj, form, change):
+
+        if change:
+            obj.modified_by = request.user
+        else:
+            obj.created_by = request.user
 
     ordering            =    ('key_string__key', 'value', 'locale',)
     search_fields       =    ('key_string__key', 'value',)
-    list_display        =    ('value', 'key_string', 'locale',)
-    list_filter         =    ('locale', AppLocalizedStringListFilter)
+    list_display        =    ('value', 'key_string', 'locale', 'status', )
+    list_filter         =    ('locale', AppLocalizedStringListFilter, 'status',)
     autocomplete_fields =    ['key_string', 'locale']
     resource_class      =    LocalizedStringResource
+    readonly_fields     =    ('modified_by', 'modified', 'created_by', 'created',)
+
+    fieldsets = (
+        ('LocalizedString', {
+            'fields': ('key_string', 'locale', 'value',)
+        }),
+        ('Metadata (Read-only)', {
+            'fields': ('created_by', 'created', 'modified_by', 'modified',)
+        }),
+   )
 
 
 class SnapshotFileInline(BaseTabularInlineModelAdmin):
