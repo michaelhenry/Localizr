@@ -88,11 +88,14 @@ class KeyStringAdmin(BaseModelAdmin):
 
     def save_model(self, request, obj, form, change):
 
+        super(KeyStringAdmin, self).save_model(request, obj, form, change)
+    
         if change:
             obj.modified_by = request.user
         else:
             obj.created_by = request.user
-
+        obj.save()
+        
         for v in obj.values.all():
             if not v.created_by:
                 v.created_by = request.user
