@@ -214,6 +214,7 @@ class LocalizedStringAdmin(BaseModelAdmin, ImportExportModelAdmin):
       obj.modified_by = request.user
     else:
       obj.created_by = request.user
+    obj.save()
 
 
 class SnapshotFileInline(BaseTabularInlineModelAdmin):
