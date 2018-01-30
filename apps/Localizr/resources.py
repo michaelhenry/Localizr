@@ -54,6 +54,13 @@ class LocalizedStringResource(resources.ModelResource):
         export_order = ('key', 'value', 'locale')
         fields = ('key', 'value', 'locale')
 
+    def after_import_instance(self, instance, new, **kwargs):
+        if new:
+            instance.created_by = kwargs['user']
+        else:
+            instance.modified_by = kwargs['user']
+        return instance
+
 
 class AppInfoKeyStringResource(resources.ModelResource):
 
