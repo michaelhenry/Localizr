@@ -189,7 +189,7 @@ services:
       - "80:8001"
     environment:
       - DATABASE_URL=postgres://postgres:your_db_password@db:5432/postgres
-      - ALLOWED_HOSTS=0.0.0.0
+      - ALLOWED_HOSTS=0.0.0.0,localizr.domain.com,or_any_domain
       # This is optional, you can assign a default then change it later from the admin page. 
       # Or you can do it programatically after you mount the image.
       - ADMIN_USERNAME=admin
