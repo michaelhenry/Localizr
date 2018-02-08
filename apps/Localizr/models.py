@@ -137,7 +137,7 @@ class AppInfoKeyStringQuerySet(models.QuerySet):
                 value=Coalesce(
                     Subquery(value), 
                     Subquery(base_value)))\
-            .values_list('key','value')
+            .values_list('key','value', 'modified',)
 
 
 class AppInfoKeyStringManager(models.Manager):
@@ -304,6 +304,14 @@ def user_app_ids_query(user):
 
         q = AppInfo.objects.filter(Q(pk__in=group_app_ids) | Q(pk__in=user_app_ids))
     return q.values_list('id')
+
+
+def get_localized_strings(app, locale_code):
+
+    return AppInfoKeyString.objects\
+        .filter(app_info=app)\
+        .filter_by_locale_code(locale_code=locale_code)
+
 
 setattr(AppInfo.objects, "user_app_ids_query", user_app_ids_query)
 

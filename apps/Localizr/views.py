@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from rest_framework.generics import ListAPIView
-
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from django.http import Http404
 
 from .serializers import (
@@ -17,6 +17,7 @@ from .models import (
     KeyString, 
     AppInfoKeyString,
     LocalizedString,
+    get_localized_strings,
     )
 
 from rest_framework.renderers import (
@@ -75,12 +76,11 @@ class LocalizedStringViewSet(viewsets.ModelViewSet):
     serializer_class = LocalizedStringSerializer
 
 
-class KeyStringLocalizedView(ListAPIView):
+class KeyStringLocalizedView(APIView):
     """
     API endpoint that allows to view the key-value list of an specified app and locale
     """
 
-    serializer_class = KeyValueSerializer
     renderer_classes = (
         BrowsableAPIRenderer, 
         JSONRenderer, 
@@ -88,20 +88,22 @@ class KeyStringLocalizedView(ListAPIView):
         KeyStringAndroidRenderer,
         )
 
-    def get_queryset(self):
-
-        app = None
-        app_slug = self.kwargs['app_slug']
-        locale_code = self.kwargs['locale_code']
+    def get(self, request, *args, **kwargs):
 
         try:
+            app_slug = kwargs['app_slug']
+            locale_code = kwargs.get('locale_code', 'en')
             app = AppInfo.objects.select_related().get(slug=app_slug)
+            keyvalues_q = get_localized_strings(app=app, locale_code=locale_code)
+            queryset = keyvalues_q.order_by('key',)
+            last_modied = keyvalues_q.order_by('-modified').values_list('modified').first()[0]
+            x_last_modified = "%s" % (last_modied.strftime("%Y-%m-%d %H:%M %Z"))
+            serializer = KeyValueSerializer(queryset, many=True)
+            response = Response(serializer.data)
+            response['X-Last-Modified'] = x_last_modified
+            return response
         except AppInfo.DoesNotExist:
-            raise Http404("App does not exist.") 
-        return AppInfoKeyString.objects\
-            .filter(app_info=app)\
-            .filter_by_locale_code(locale_code=locale_code)\
-            .order_by('key')
+            raise Http404("Not exist.")
 
 
 locale_list_view = LocaleViewSet.as_view({
