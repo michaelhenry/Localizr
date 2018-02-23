@@ -28,6 +28,7 @@ from rest_framework.renderers import (
 from .renderers import (
     KeyStringIOSRenderer,
     KeyStringAndroidRenderer,
+    ReactNativeRenderer,
     )
 
 
@@ -86,6 +87,7 @@ class KeyStringLocalizedView(APIView):
         JSONRenderer, 
         KeyStringIOSRenderer,
         KeyStringAndroidRenderer,
+        ReactNativeRenderer,
         )
 
     def get(self, request, *args, **kwargs):

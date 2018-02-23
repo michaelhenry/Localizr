@@ -110,3 +110,16 @@ class KeyStringAndroidRenderer(KeyStringBaseRenderer):
       r += '\n'
     r += '</resources>'
     return r.encode(self.charset)
+
+
+class ReactNativeRenderer(renderers.JSONRenderer):
+
+  format = 'react-native'
+
+  def render(self, data, accepted_media_type=None, renderer_context=None):
+    kv_list = list(map(lambda x: dict(x), data))
+    d = {y['key'] : y['value'] for y in kv_list }
+    return super(ReactNativeRenderer, self).render(d, 
+      accepted_media_type=accepted_media_type, 
+      renderer_context=renderer_context)
+
