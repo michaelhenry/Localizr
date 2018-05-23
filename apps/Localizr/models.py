@@ -247,7 +247,9 @@ class AppUser(UserInfoSavableModel):
         on_delete=models.CASCADE)
     user     = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,)
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,)
 
     def __str__(self):
         return "%s|%s" % (
