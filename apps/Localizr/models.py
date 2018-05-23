@@ -13,7 +13,7 @@ class UserInfoSavableModel(models.Model):
     created_by  = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         related_name='%(class)s_creators',
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
     )
@@ -21,7 +21,7 @@ class UserInfoSavableModel(models.Model):
     modified_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         related_name='%(class)s_modifiers', 
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
     )
