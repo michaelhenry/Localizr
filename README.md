@@ -188,6 +188,7 @@ services:
     ports:
       - "80:8001"
     environment:
+      # Reference: postgres://USER:PASSWORD@HOST:PORT/NAME, this example is using the default postgres database.
       - DATABASE_URL=postgres://postgres:your_db_password@db:5432/postgres
       # You have to define your host name here to prevent any random attacks.
       - ALLOWED_HOSTS=0.0.0.0,localizr.domain.com,or_any_domain
