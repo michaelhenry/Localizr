@@ -4,7 +4,7 @@ django==2.0.6
 django-debug-toolbar==1.9.1
 django-rest-framework==0.1.0
 django_storages==1.6.5
-djangorestframework==3.7.7
+djangorestframework==3.8.2
 django-import-export==0.7.0
 gunicorn==19.7.1
 psycopg2==2.7.3.2
