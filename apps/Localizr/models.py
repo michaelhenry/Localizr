@@ -174,7 +174,7 @@ class AppInfoKeyString(UserInfoSavableModel):
 class LocalizedString(UserInfoSavableModel, HasStatusFlag):
 
     locale      =   models.ForeignKey(Locale, on_delete=models.CASCADE)
-    value       =   models.CharField(max_length=1000)
+    value       =   models.TextField()
     key_string  =   models.ForeignKey(KeyString, 
         related_name='values', 
         on_delete=models.CASCADE)
