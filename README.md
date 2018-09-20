@@ -165,7 +165,11 @@ Just find the `EXPORT` button, select the `format` and that's it.
 ### Using Heroku
 Just click this button >++> [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/michaelhenry/localizr)
 
+If you're using heroku's free dyno and the waking time is longer than expected, you disable the auto migration option by setting the environment variable:
 
+```
+LOCALIZR_DISABLE_AUTO_MIGRATION=1
+```
 
 ### Using Docker
 sample config of `docker-compose.yml`
