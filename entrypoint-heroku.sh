@@ -1,4 +1,6 @@
-python manage.py migrate
+if ! [[ "$LOCALIZR_DISABLE_AUTO_MIGRATION" = "1" ]]; then
+    python manage.py migrate
+fi
 
 cat <<EOF | python manage.py shell
 import os
