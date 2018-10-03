@@ -171,6 +171,8 @@ class AppLocalizedStringListFilter(admin.SimpleListFilter):
         app_info__pk=self.value()).values_list('key_string__pk', flat=True)
       return queryset.filter(key_string__pk__in=keystring_ids)
     else:
+      if request.user.is_superuser:
+        return queryset
       user_app_ids = AppInfo.objects.user_app_ids_query(request.user)
       keystring_ids = AppInfoKeyString.objects.filter(
         app_info__pk__in=user_app_ids).values_list('key_string__pk', flat=True)
