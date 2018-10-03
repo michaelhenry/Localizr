@@ -98,11 +98,14 @@ class KeyStringLocalizedView(APIView):
             app = AppInfo.objects.select_related().get(slug=app_slug)
             keyvalues_q = get_localized_strings(app=app, locale_code=locale_code)
             queryset = keyvalues_q.order_by('key',)
-            last_modied = keyvalues_q.order_by('-modified').values_list('modified').first()[0]
-            x_last_modified = "%s" % (last_modied.strftime("%Y-%m-%d %H:%M %Z"))
+
             serializer = KeyValueSerializer(queryset, many=True)
             response = Response(serializer.data)
-            response['X-Last-Modified'] = x_last_modified
+            last_modified_q = keyvalues_q.order_by('-modified').values_list('modified')
+
+            if last_modified_q.exists():
+                x_last_modified = "%s" % (last_modified_q.first()[0].strftime("%Y-%m-%d %H:%M %Z"))
+                response['X-Last-Modified'] = x_last_modified
             return response
         except AppInfo.DoesNotExist:
             raise Http404("Not exist.")
