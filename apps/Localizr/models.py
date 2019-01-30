@@ -114,7 +114,7 @@ class KeyString(UserInfoSavableModel):
         verbose_name_plural =    'Keys'
 
     def available_locales(self):
-        return ",".join(list(self.values.values_list('locale__code', flat=True)))
+        return ", ".join(list(self.values.values_list('locale__code', flat=True).order_by('locale__code')))
 
 class AppInfoKeyStringQuerySet(models.QuerySet):
 
