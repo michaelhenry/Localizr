@@ -75,7 +75,7 @@ class KeyStringAdmin(BaseModelAdmin):
 
   ordering            =    ('key',)
   search_fields       =    ('key','description',)
-  list_display        =    ('key' ,'description',)
+  list_display        =    ('key' ,'description', 'available_locales')
   inlines             =    [LocalizedStringInline,]
   readonly_fields     =    ('modified_by', 'modified', 'created_by', 'created',)
 
