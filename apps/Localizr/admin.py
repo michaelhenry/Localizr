@@ -192,7 +192,7 @@ class LocalizedStringAdmin(BaseModelAdmin, ImportExportModelAdmin):
 
   fieldsets = (
     ('LocalizedString', {
-      'fields': ('key_string', 'locale', 'value',)
+      'fields': ('key_string', 'locale', 'value', 'status',)
     }),
     ('Metadata (Read-only)', {
       'fields': ('created_by', 'created', 'modified_by', 'modified',)

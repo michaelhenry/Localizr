@@ -122,13 +122,15 @@ class AppInfoKeyStringQuerySet(models.QuerySet):
     def filter_by_locale_code(self, locale_code):
 
         base_value = LocalizedString.objects.filter(
-            locale=OuterRef('app_info__base_locale')
+            locale=OuterRef('app_info__base_locale'),
+            status=LocalizedString.STATUS_PUBLISHED,
         ).filter(
             key_string=OuterRef('key_string'),
         ).values_list('value',flat=True)
 
         value = LocalizedString.objects.filter(
-            locale__code=locale_code
+            locale__code=locale_code,
+            status=LocalizedString.STATUS_PUBLISHED,
         ).filter(
             key_string=OuterRef('key_string'),
         ).values_list('value',flat=True)
@@ -139,6 +141,7 @@ class AppInfoKeyStringQuerySet(models.QuerySet):
                 value=Coalesce(
                     Subquery(value), 
                     Subquery(base_value)))\
+            .exclude(value=None)\
             .values_list('key','value', 'modified',)
 
 
