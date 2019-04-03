@@ -179,9 +179,13 @@ class AppLocalizedStringListFilter(admin.SimpleListFilter):
       return queryset.filter(key_string__pk__in=keystring_ids)
 
 
+def make_localized_string_published(modeladmin, request, queryset):
+  queryset.update(status=LocalizedString.STATUS_PUBLISHED)
+make_localized_string_published.short_description = "Publish selected LocalizedString"
+
 class LocalizedStringAdmin(BaseModelAdmin, ImportExportModelAdmin):
 
-  
+
   ordering            =    ('key_string__key', 'value', 'locale',)
   search_fields       =    ('key_string__key', 'value',)
   list_display        =    ('value', 'key_string', 'locale', 'status', )
@@ -189,6 +193,7 @@ class LocalizedStringAdmin(BaseModelAdmin, ImportExportModelAdmin):
   autocomplete_fields =    ['key_string', 'locale']
   resource_class      =    LocalizedStringResource
   readonly_fields     =    ('modified_by', 'modified', 'created_by', 'created',)
+  actions = [make_localized_string_published]
 
   fieldsets = (
     ('LocalizedString', {
