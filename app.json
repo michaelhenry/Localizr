@@ -1,6 +1,6 @@
 {
   "name": "Localizr",
-  "description": "Localization DSL.",
+  "description": "Localization manager.",
   "keywords": [
     "locale",
     "localizer",
