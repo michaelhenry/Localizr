@@ -19,7 +19,6 @@ from apps.Localizr.views import (
 )
 
 urlpatterns = [
-    path('', admin.site.urls),
     path('v1/token/', obtain_auth_token, name='auth-token'),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
@@ -48,7 +47,7 @@ urlpatterns += [
     path('app/<slug:app_slug>.<slug:locale_code>',
          key_value_list_view, name='key-value-list'),
     path('v1/login/', login_view, name='login'),
-
+    path('', admin.site.urls),
 ]
 
 if settings.DEBUG_TOOLBAR:
