@@ -9,4 +9,4 @@ if os.environ.get("ADMIN_USERNAME", None):
 EOF
 
 python manage.py collectstatic --noinput
-gunicorn -b 0.0.0.0:$PORT LocalizrExample.wsgi --preload
+gunicorn -b 0.0.0.0:$PORT project.wsgi --preload

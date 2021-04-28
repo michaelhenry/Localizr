@@ -10,7 +10,7 @@
   "website": "https://github.com/michaelhenry/localizr",
   "repository": "https://github.com/michaelhenry/localizr",
   "env": {
-    "DJANGO_SETTINGS_MODULE": "LocalizrExample.settings.production",
+    "DJANGO_SETTINGS_MODULE": "project.settings.production",
     "DJANGO_SECRET_KEY": {
       "generator": "secret"
     },

@@ -7,19 +7,20 @@ from .models import (
     KeyString,
     AppInfoKeyString,
     LocalizedString,
-    )
+)
 
 from .widgets import (
     AppInfoWidget,
     LocaleWidget,
     KeyStringWidget,
-    )
+)
 
 
 class AppInfoResource(resources.ModelResource):
 
-    base_locale = fields.Field(column_name='base_locale', 
-        attribute='base_locale', 
+    base_locale = fields.Field(
+        column_name='base_locale',
+        attribute='base_locale',
         widget=LocaleWidget(Locale, 'code'))
 
     class Meta:
@@ -40,12 +41,14 @@ class LocaleResource(resources.ModelResource):
 
 class LocalizedStringResource(resources.ModelResource):
 
-    key = fields.Field(column_name='key', 
-        attribute='key_string', 
+    key = fields.Field(
+        column_name='key',
+        attribute='key_string',
         widget=KeyStringWidget(KeyString, 'key'))
 
-    locale = fields.Field(column_name='locale', 
-        attribute='locale', 
+    locale = fields.Field(
+        column_name='locale',
+        attribute='locale',
         widget=LocaleWidget(Locale, 'code'))
 
     class Meta:
@@ -64,20 +67,22 @@ class LocalizedStringResource(resources.ModelResource):
 
 class AppInfoKeyStringResource(resources.ModelResource):
 
-    app = fields.Field(column_name='app', 
-        attribute='app_info', 
+    app = fields.Field(
+        column_name='app',
+        attribute='app_info',
         widget=AppInfoWidget(AppInfo, 'slug'))
 
-    key = fields.Field(column_name='key', 
-        attribute='key_string', 
+    key = fields.Field(
+        column_name='key',
+        attribute='key_string',
         widget=KeyStringWidget(KeyString, 'key'))
 
-    value = fields.Field(column_name='value', 
+    value = fields.Field(
+        column_name='value',
         attribute='value',)
 
     class Meta:
         model = AppInfoKeyString
         import_id_fields = ['app', 'key']
-        export_order = ('key','value','app')
-        fields = ('key','value', 'app',)
-
+        export_order = ('key', 'value', 'app')
+        fields = ('key', 'value', 'app',)

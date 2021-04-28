@@ -7,12 +7,12 @@ matrix:
     - python: 3.7
       dist: xenial
       sudo: true
-      
+
 install:
   - pip3 install -r requirements.txt
 
 env:
-  - DJANGO_SETTINGS_MODULE=LocalizrExample.settings.default
+  - DJANGO_SETTINGS_MODULE=project.settings
 
 script:
   - python manage.py test

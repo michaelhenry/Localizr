@@ -1,4 +1,4 @@
-from .default import *
+from . import *
 import dj_database_url
 
 DEBUG = False
@@ -7,10 +7,11 @@ DEBUG_TOOLBAR = False
 INSTALLED_APPS += []
 
 try:
-	DATABASES['default'] =  dj_database_url.parse(os.environ.get('DATABASE_URL'))
-	DATABASES['default']['ENGINE'] = os.environ.get('DB_ENGINE', 'django.db.backends.postgresql_psycopg2')
+    DATABASES['default'] = dj_database_url.parse(os.environ.get('DATABASE_URL'))
+    DATABASES['default']['ENGINE'] = os.environ.get(
+        'DB_ENGINE', 'django.db.backends.postgresql_psycopg2')
 except:
-	pass
+    pass
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', None)
@@ -23,4 +24,3 @@ if AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY and AWS_STORAGE_BUCKET_NAME:
     INSTALLED_APPS += ['storages']
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
