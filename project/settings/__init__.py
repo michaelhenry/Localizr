@@ -16,17 +16,22 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(
     os.path.dirname(os.path.abspath(__file__))))
 
+
+def ENV(key, default_value=None):
+    return os.environ.get(key, default_value)
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "YOUR_SECRET_KEY")
+SECRET_KEY = ENV("DJANGO_SECRET_KEY", "YOUR_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 DEBUG_TOOLBAR = True
 INTERNAL_IPS = ('127.0.0.1',)
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", '127.0.0.1').split(',')
+ALLOWED_HOSTS = ENV("ALLOWED_HOSTS", '127.0.0.1').split(',')
 
 # Application definition
 
@@ -89,6 +94,7 @@ DATABASES = {
     }
 }
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators

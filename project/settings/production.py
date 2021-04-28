@@ -1,8 +1,9 @@
 from . import *
 import dj_database_url
 
-DEBUG = False
-DEBUG_TOOLBAR = False
+DEBUG = ENV("DEBUG", "0") == "1"
+
+DEBUG_TOOLBAR = DEBUG
 
 INSTALLED_APPS += []
 
