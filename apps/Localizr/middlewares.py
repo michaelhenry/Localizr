@@ -4,18 +4,19 @@ from django.http import HttpResponseRedirect, HttpResponseGone
 from datetime import timedelta
 from django.utils import timezone
 from .models import (
-    Snapshot, 
+    Snapshot,
     SnapshotFile,
-    )
+)
+
 
 class LocalizrSnapshotMiddleWare(MiddlewareMixin):
 
     def process_response(self, request, response):
-        
+
         snapshot_key = request.GET.get('snapshot')
         format = request.GET.get('format')
         if snapshot_key and format:
-           
+
             filename = request.path.split('/')[-1]
             locale_code = filename.split('.')[-1]
             app_slug = filename.split('.')[0]
@@ -30,7 +31,7 @@ class LocalizrSnapshotMiddleWare(MiddlewareMixin):
             if not created:
                 snapshot_file = None
                 snapshot_file_query = SnapshotFile.objects.filter(
-                    snapshot=snapshot, 
+                    snapshot=snapshot,
                     locale_code=locale_code)
 
                 if snapshot_file_query.exists():
@@ -41,7 +42,8 @@ class LocalizrSnapshotMiddleWare(MiddlewareMixin):
                         return HttpResponseGone()
                     content = response.content
 
-                    snapshot_file = SnapshotFile(snapshot=snapshot, locale_code=locale_code)
+                    snapshot_file = SnapshotFile(
+                        snapshot=snapshot, locale_code=locale_code)
                     snapshot_file.key = snapshot_key
                     snapshot_file.file.save(filename, ContentFile(content))
                     snapshot_file.save()
@@ -57,6 +59,7 @@ class CorsMiddleWare(MiddlewareMixin):
 
     def process_response(self, request, response):
 
-        response['Access-Control-Allow-Origin'] = '*' # For now it's a wildcard.
+        # For now it's a wildcard.
+        response['Access-Control-Allow-Origin'] = '*'
         response['Access-Control-Allow-Headers'] = 'Content-Type, Authorization, Host, X-Date'
         return response

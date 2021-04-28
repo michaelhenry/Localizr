@@ -10,4 +10,4 @@ if os.environ.get("ADMIN_USERNAME", None):
 		User.objects.create_superuser("$ADMIN_USERNAME", "$ADMIN_EMAIL", "$ADMIN_PASSWORD")
 EOF
 
-gunicorn -b 0.0.0.0:$PORT LocalizrExample.wsgi --preload
+gunicorn -b 0.0.0.0:$PORT project.wsgi --preload
