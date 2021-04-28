@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/michaelhenry/Localizr.svg?branch=master)](https://travis-ci.org/michaelhenry/Localizr)
 [![Twitter](https://img.shields.io/badge/twitter-@michaelhenry119-blue.svg?style=flat)](https://twitter.com/michaelhenry119)
 [![Docker](https://img.shields.io/badge/docker-michaelhenry119/localizr-red.svg?style=flat)](https://hub.docker.com/r/michaelhenry119/localizr/tags/)
-[![Version](https://img.shields.io/badge/version-1.2-yellow.svg?style=flat)](#)
+[![Version](https://img.shields.io/badge/version-1.3-yellow.svg?style=flat)](#)
 
 
 Localizr is a Tool that handles and automates localization files. Basically we give limited access to the translators to let them input or upload different keystrings and the developer will just fetch it on development or deployment only when if there is an update or changes. This will lessen or prevent the mistake that developer made because he/she has no clue what are those words are and most of them (including me, but not all) are just copy pasting those words (especially when it comes to chinese or japanese characters) from excel to the Localizable.strings via Xcode.
