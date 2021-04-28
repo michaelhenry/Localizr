@@ -1,4 +1,4 @@
-FROM python:3.7
+FROM python:3.8
 MAINTAINER Michael Henry Pantaleon
 
 ENV PROJECT_PATH /home
