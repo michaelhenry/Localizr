@@ -17,13 +17,18 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='AppUserGroup',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('created', models.DateTimeField(auto_now=True)),
                 ('modified', models.DateTimeField(auto_now_add=True)),
-                ('app_info', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Localizr.AppInfo')),
-                ('created_by', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='appusergroup_creators', to=settings.AUTH_USER_MODEL)),
-                ('group', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='auth.Group')),
-                ('modified_by', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='appusergroup_modifiers', to=settings.AUTH_USER_MODEL)),
+                ('app_info', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='Localizr.AppInfo')),
+                ('created_by', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE,
+                 related_name='appusergroup_creators', to=settings.AUTH_USER_MODEL)),
+                ('group', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='auth.Group')),
+                ('modified_by', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE,
+                 related_name='appusergroup_modifiers', to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'verbose_name': 'User-Group-App Permission',
@@ -32,7 +37,8 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterModelOptions(
             name='appuser',
-            options={'verbose_name': 'User-App Permission', 'verbose_name_plural': 'User-App Permissions'},
+            options={'verbose_name': 'User-App Permission',
+                     'verbose_name_plural': 'User-App Permissions'},
         ),
         migrations.AlterUniqueTogether(
             name='appuser',

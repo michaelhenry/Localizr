@@ -1,4 +1,4 @@
-from  django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 
@@ -29,7 +29,7 @@ class UserAuthSerializer(UserBaseSerializer):
             'first_name',
             'last_name',
             'token',
-    )
+        )
 
     read_only_fields = (
         'user_id',

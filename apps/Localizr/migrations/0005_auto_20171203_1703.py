@@ -17,14 +17,17 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Snapshot',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('created', models.DateTimeField(auto_now=True)),
                 ('modified', models.DateTimeField(auto_now_add=True)),
                 ('key', models.CharField(max_length=36)),
                 ('app_slug', models.CharField(max_length=30)),
                 ('format', models.CharField(max_length=10)),
-                ('created_by', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='snapshot_creators', to=settings.AUTH_USER_MODEL)),
-                ('modified_by', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='snapshot_modifiers', to=settings.AUTH_USER_MODEL)),
+                ('created_by', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE,
+                 related_name='snapshot_creators', to=settings.AUTH_USER_MODEL)),
+                ('modified_by', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE,
+                 related_name='snapshot_modifiers', to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'verbose_name': 'Snapshot',
@@ -34,14 +37,19 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='SnapshotFile',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('created', models.DateTimeField(auto_now=True)),
                 ('modified', models.DateTimeField(auto_now_add=True)),
                 ('locale_code', models.CharField(max_length=10)),
-                ('file', models.FileField(upload_to=apps.Localizr.models.snapshot_folder)),
-                ('created_by', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='snapshotfile_creators', to=settings.AUTH_USER_MODEL)),
-                ('modified_by', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='snapshotfile_modifiers', to=settings.AUTH_USER_MODEL)),
-                ('snapshot', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='snapshots', to='Localizr.Snapshot')),
+                ('file', models.FileField(
+                    upload_to=apps.Localizr.models.snapshot_folder)),
+                ('created_by', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE,
+                 related_name='snapshotfile_creators', to=settings.AUTH_USER_MODEL)),
+                ('modified_by', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE,
+                 related_name='snapshotfile_modifiers', to=settings.AUTH_USER_MODEL)),
+                ('snapshot', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                 related_name='snapshots', to='Localizr.Snapshot')),
             ],
             options={
                 'verbose_name': 'SnapshotFile',

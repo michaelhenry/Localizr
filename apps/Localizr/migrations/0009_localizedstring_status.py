@@ -13,6 +13,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='localizedstring',
             name='status',
-            field=models.IntegerField(choices=[(0, 'Published'), (1, 'Pending'), (3, 'Draft')], default=3),
+            field=models.IntegerField(
+                choices=[(0, 'Published'), (1, 'Pending'), (3, 'Draft')], default=3),
         ),
     ]

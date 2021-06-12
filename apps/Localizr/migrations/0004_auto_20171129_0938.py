@@ -16,7 +16,8 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterModelOptions(
             name='appinfokeystring',
-            options={'verbose_name': "App 's Key", 'verbose_name_plural': "App 's Keys"},
+            options={'verbose_name': "App 's Key",
+                     'verbose_name_plural': "App 's Keys"},
         ),
         migrations.AlterModelOptions(
             name='keystring',
@@ -24,10 +25,12 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterModelOptions(
             name='locale',
-            options={'verbose_name': 'Locale', 'verbose_name_plural': 'Locales'},
+            options={'verbose_name': 'Locale',
+                     'verbose_name_plural': 'Locales'},
         ),
         migrations.AlterModelOptions(
             name='localizedstring',
-            options={'verbose_name': 'Localized String', 'verbose_name_plural': 'Localized Strings'},
+            options={'verbose_name': 'Localized String',
+                     'verbose_name_plural': 'Localized Strings'},
         ),
     ]
