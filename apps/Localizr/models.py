@@ -51,7 +51,7 @@ class HasStatusFlag(models.Model):
 class Locale(UserInfoSavableModel):
 
     name = models.CharField(max_length=30)
-    code = models.CharField(max_length=10)
+    code = models.CharField(max_length=10, unique=True)
     description = models.CharField(
         max_length=200,
         blank=True,
@@ -64,7 +64,6 @@ class Locale(UserInfoSavableModel):
         return '%s' % self.name
 
     class Meta(object):
-        unique_together = ('name', 'code',)
         verbose_name = 'Locale'
         verbose_name_plural = 'Locales'
 
