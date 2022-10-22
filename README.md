@@ -207,6 +207,45 @@ volumes:
   pg-data:
 ```
 
+### Local setup (via virtualenv)
+
+Install virtualenv
+```bash
+$ pip install virtualenv
+```
+
+Create a virtual environment `venv`
+```bash
+$ virtualenv venv
+```
+
+Activate the virtual environment
+```bash
+$ source venv/bin/activate
+```
+
+Install the dependencies
+```bash
+$ pip install -r requirements_local.txt
+```
+
+Migrate to create a local sqlite database
+```bash
+$ python manage.py migrate --settings=project.settings
+```
+
+Create a super user (login account)
+```bash
+$ python manage.py createsuperuser --settings=project.settings
+```
+
+Run the local server
+```bash
+$ python manage.py runserver --settings=project.settings
+```
+
+open [http://127.0.0.1:8000/](http://127.0.0.1:8000/) from your browser and use the login credentials you provided.
+
 ## Snapshot
 Snapshot is supported by passing a query param `?snapshot=your_any_key_or_build_number` to the localizedkeystrings request.
 
